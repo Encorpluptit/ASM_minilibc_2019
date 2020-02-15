@@ -8,9 +8,9 @@
 
 
                               ##################################################
-			      #						       #
+			      #					       #
 			      #                                                #
-			      #		    GENERAL ARCHITECTURE	       #
+			      #		    GENERAL ARCHITECTURE       #
 			      #                                                #
 			      #                                                #
 			      ##################################################
@@ -21,10 +21,10 @@
 # ==  Project Description  == #
 #=============================#
 #############################################################################################################
-PROJECT			=	#ProjectName Navy
-BIN_NAME		=	#BinName navy
-LIB_NAME		=	#LivNavy navy
-LIB_FLAG		=	#LibFlag lib
+PROJECT		=	MiniLibC
+BIN_NAME		=	libasm
+LIB_NAME		=	asm.so
+LIB_FLAG		=	lib
 #LIB_USED		=	#-lm, lncurses
 #############################################################################################################
 
@@ -36,14 +36,13 @@ LIB_FLAG		=	#LibFlag lib
 #############################################################################################################
 MAIN_FILE		= 	main.c
 
-SRC_FILES		=	#						\
+SRC_FILES		=	strlen.asm					\
 
 TSRC_FILES		=	#						\
 
 LIB_FILES		=	#						\
 
-TESTS_FILES		=	wrap_malloc.c							\
-				printf.c							\
+TESTS_FILES		=	test_strlen.c					\
 
 #############################################################################################################
 
@@ -67,7 +66,7 @@ INCLUDE_FOLDER		=	include
 INCLUDE_DIR		=	$(addprefix $(PROJECT_DIR), $(addsuffix /, $(INCLUDE_FOLDER)))
 ####################
 # Setup LIB directory architecture.
-LIB_FOLDER		=	lib
+LIB_FOLDER		=	.
 LIB_DIR			=	$(addprefix $(PROJECT_DIR), $(addsuffix /, $(LIB_FOLDER)))
 ####################
 # Setup TESTS directories architecture.
@@ -97,7 +96,7 @@ SRC			:=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 TSRC			:=	$(addprefix $(SRC_DIR), $(TSRC_FILES))
 ####################
 # Setup rule to transform SRC into OBJ.
-OBJ			:=	$(SRC:.c=.o)
+OBJ			:=	$(SRC:.asm=.o)
 ####################
 # Setup LIB_SRC_FILES path.
 LIB_SRC			:=	$(addprefix $(LIB_DIR), $(LIB_FILES))
@@ -167,8 +166,9 @@ CP			=	cp -t
 MV			=	mv -t
 GCOV			=	gcovr
 CC			=	gcc
+NASM			=	nasm
 #CC			=	clang
-LD			=	ar rc
+LD			=	ld
 #############################################################################################################
 
 
@@ -184,8 +184,8 @@ LD			=	ar rc
 DEFINE			+=	#if define necessary
 ####################
 # Setup includes flags.
-INCLUDES		=	-iquote $(INCLUDE_DIR)
-TESTS_INCLUDES		=	-iquote $(TESTS_INCLUDE_DIR)
+INCLUDES		=	-I $(INCLUDE_DIR)
+TESTS_INCLUDES		=	-I $(TESTS_INCLUDE_DIR)
 ####################
 # Setup CFLAGS and CPPFLAGS, variables used in compilation commands.
 CFLAGS			+=	$(DEFINE)
@@ -204,6 +204,8 @@ else
 endif
 ####################
 # Setup LIB flags to compile with correct lib.
+ELF64				+=	-felf64
+LSHARED			=	-shared -fPIC -O2 -fvisibility=hidden
 LDFLAGS			+=	-L$(LIB_FOLDER) -l$(LIB_NAME)
 LDLIBS			+=	$(LIB_USED)
 ####################
@@ -308,7 +310,7 @@ TITLE			=	"\e[1;4;31m"
 ####################
 # Rule for "make"
 .PHONY: all
-all: BUILD_LIB $(PROJECT)
+all: BUILD_LIB
 
 ####################
 # Rule for "make re".
@@ -319,6 +321,13 @@ re: fclean all
 # Rule for changing VARIABLES in rule execution. (ex: CFLAGS += -g3)
 %.o: CFLAGS += -MT $@ -MMD
 
+# %.o: CPPFLAGS += -MT $@ -MMD
+
+####################
+# Rule for transforming .c into .o
+%.o: %.asm
+	$(NASM) $(CPPFLAGS) -o $@ $<
+	@echo -e	$(MAG)"[$(PROJECT) | $(NASM)] OK → $@"$(END)
 ####################
 # Rule for transforming .c into .o
 %.o: %.c
@@ -340,10 +349,10 @@ $(PROJECT): 		$(MAIN) $(OBJ)
 	@echo -e	"[$(PROJECT)]: CC        = $(CC)"						| cat
 	@echo -e	"[$(PROJECT)]: SOURCES   = $(SRC)"						| cat
 	@echo -e	"[$(PROJECT)]: OBJECTS   = $^"							| cat
-	@echo -e	"[$(PROJECT)]: CFLAGS    = $(CFLAGS)"						| cat
-	@echo -e	"[$(PROJECT)]: CPPFLAGS  = $(CPPFLAGS)"						| cat
-	@echo -e	"[$(PROJECT)]: LDFLAGS   = $(LDFLAGS)"						| cat
-	@echo -e	"[$(PROJECT)]: LDLIBS    = $(LDLIBS)"						| cat
+	@echo -e	"[$(PROJECT)]: CFLAGS    = $(CFLAGS)"
+	@echo -e	"[$(PROJECT)]: CPPFLAGS  = $(CPPFLAGS)"
+	@echo -e	"[$(PROJECT)]: LDFLAGS   = $(LDFLAGS)"
+	@echo -e	"[$(PROJECT)]: LDLIBS    = $(LDLIBS)"
 	@$(CC) -o $(BIN_NAME) $^ $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBS)
 	@echo -e	$(TASK_OK)"[$(PROJECT) | Compilation] OK\n"$(END)				| cat
 #############################################################################################################
@@ -357,11 +366,12 @@ $(PROJECT): 		$(MAIN) $(OBJ)
 #=============================#
 #############################################################################################################
 .PHONY: BUILD_LIB
-BUILD_LIB: 	$(LIB_OBJ)
-	@echo -e	"\n\n"$(FRAME_D)								| cat
-	@echo -e	$(TITLE)"[$(PROJECT)]: Library $(LIB_NAME) creation:"$(END)			| cat
-	@-$(LD) $(LD_LIB) $(LIB_OBJ)
-	@echo -e  	$(TASK_OK)"[$(PROJECT)]: Libraries created in $(LIB_FOLDER) folder !\n\n"$(END)	| cat
+BUILD_LIB: 	CPPFLAGS	+=	$(ELF64)
+BUILD_LIB: 	$(OBJ)
+	@echo -e	"\n\n"$(FRAME_D)
+	@echo -e	$(TITLE)"[$(PROJECT)]: Library $(LIB_NAME) creation:"$(END)
+	$(LD) -o $(LDNAME) $(OBJ) $(LSHARED)
+	@echo -e  $(TASK_OK)"[$(PROJECT)]: Libraries created in $(LIB_FOLDER) folder !\n\n"$(END)
 
 
 

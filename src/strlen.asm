@@ -1,5 +1,7 @@
 %include "libasm.inc"
 
+    ;; size_t strlen(const char *s);
+
 _strlen:
     xor         rax, rax
     cmp         byte [rdi], 0x0

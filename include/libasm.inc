@@ -3,7 +3,8 @@ BITS                64
 section             .text
 
 ;; Functions declarations
-global              _strlen:function
+global              strlen:function
+global              strchr:function
 
 ;; Function for return on condition
 end:
