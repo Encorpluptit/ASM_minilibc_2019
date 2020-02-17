@@ -7,7 +7,7 @@ section             .text
 ;; Functions declarations
 global              strlen:function
 global              strchr:function
-;; global              _memset:function
+global              _memset:function
 ;; global              _memcpy:function
 
 ;; Function for return on condition
