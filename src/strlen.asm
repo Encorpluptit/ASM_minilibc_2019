@@ -8,7 +8,6 @@ _strlen:
     je          END
     jmp         .loop
 
-
 .loop:
     inc         rax
     inc         rdi

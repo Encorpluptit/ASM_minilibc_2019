@@ -23,7 +23,7 @@
 #############################################################################################################
 PROJECT		=	MiniLibC
 BIN_NAME		=	libasm
-LIB_NAME		=	asm.so
+LIB_NAME		=	asm
 LIB_FLAG		=	lib
 #LIB_USED		=	#-lm, lncurses
 #############################################################################################################
@@ -37,12 +37,16 @@ LIB_FLAG		=	lib
 MAIN_FILE		= 	main.c
 
 SRC_FILES		=	strlen.asm					\
+				strchr.asm					\
 
 TSRC_FILES		=	#						\
 
 LIB_FILES		=	#						\
 
-TESTS_FILES		=	test_strlen.c					\
+TESTS_FILES		=	src/test_strlen.c				\
+				fct/strlen.c					\
+				src/test_strchr.c				\
+				fct/strchr.c					\
 
 #############################################################################################################
 
@@ -71,7 +75,7 @@ LIB_DIR			=	$(addprefix $(PROJECT_DIR), $(addsuffix /, $(LIB_FOLDER)))
 ####################
 # Setup TESTS directories architecture.
 TESTS_FOLDER		=	tests
-TESTS_SRC_FOLDER	=	src
+TESTS_SRC_FOLDER	=	.
 TESTS_INCLUDE_FOLDER	=	include
 TESTS_RESSOURCES_FOLDER	=	ressources
 TESTS_DIR		=	$(addprefix $(PROJECT_DIR), $(addsuffix /, $(TESTS_FOLDER)))
@@ -105,7 +109,7 @@ LIB_SRC			:=	$(addprefix $(LIB_DIR), $(LIB_FILES))
 LIB_OBJ			:=	$(LIB_SRC:.c=.o)
 ####################
 # Setup LIB name with the lib tag (ex: libmy.a).
-LDNAME			:=	$(addprefix $(LIB_FLAG), $(addsuffix .a, $(LIB_NAME)))
+LDNAME			:=	$(addprefix $(LIB_FLAG), $(addsuffix .so, $(LIB_NAME)))
 ####################
 # Setup LIB path.
 LD_LIB			:=	$(addprefix $(LIB_DIR), $(LDNAME))
@@ -148,7 +152,7 @@ UTESTS_RUN		=	tests_run
 TESTS_BIN		=	unit_tests
 ####################
 # Setup WRAP_MALLOC RULE.
-WRAP_MALLOC		=	TRUE
+WRAP_MALLOC		=	FALSE
 ####################
 # Setup FUNCTIONNALS_TESTS RULE name and FUNCTIONNALS_TESTS script name.
 #FTESTS_RUN		=	ftests_run
@@ -192,8 +196,7 @@ CFLAGS			+=	$(DEFINE)
 CPPFLAGS		+=	$(INCLUDES)
 ####################
 # Setup GCCFLAGS and CLANGFLAGS, and assert the compiler used.
-GCCFLAGS		+=	-W -Wall -Wextra -Wshadow -O1
-#GCCFLAGS		+=	-Werror
+GCCFLAGS		+=	-W -Wall -Wextra -Werror -fno-builtin
 CLANGFLAGS		+=	-Weverything
 ifeq ($(CC), clang)
     $(info <===== $(PROJECT) Makefile config: Using CLANG compiler =====>)
@@ -204,10 +207,14 @@ else
 endif
 ####################
 # Setup LIB flags to compile with correct lib.
-ELF64				+=	-felf64
 LSHARED			=	-shared -fPIC -O2 -fvisibility=hidden
 LDFLAGS			+=	-L$(LIB_FOLDER) -l$(LIB_NAME)
 LDLIBS			+=	$(LIB_USED)
+####################
+# Setup NASM flags to compile with NASM.
+ELF64				+=	-felf64
+ELF				+=	$(ELF64)
+NASMFLAGS			+=	$(ELF)
 ####################
 # Setup VALGRIND flags to launch with valgrind.
 VAL_FLAG		+=	-g3
@@ -247,7 +254,7 @@ TRUNFLAGS   +=	--timeout 5
 TRUNFLAGS   +=	--always-succeed
 ####################
 # Setup GCOVR FLAGS to exclude some dirextories.
-GCOV_EXCLUDE		=	tests|lib
+GCOV_EXCLUDE		=	tests/src|lib
 GCOVFLAGS		+=	-s --exclude='$(GCOV_EXCLUDE)'
 #############################################################################################################
 
@@ -321,18 +328,17 @@ re: fclean all
 # Rule for changing VARIABLES in rule execution. (ex: CFLAGS += -g3)
 %.o: CFLAGS += -MT $@ -MMD
 
-# %.o: CPPFLAGS += -MT $@ -MMD
-
 ####################
-# Rule for transforming .c into .o
+# Rule for transforming .asm into .o
 %.o: %.asm
-	$(NASM) $(CPPFLAGS) -o $@ $<
+	@$(NASM) $(NASMFLAGS) $(CPPFLAGS) -o $@ $<
 	@echo -e	$(MAG)"[$(PROJECT) | $(NASM)] OK → $@"$(END)
+
 ####################
 # Rule for transforming .c into .o
 %.o: %.c
 	@$(CC) $(CPPFLAGS) -c -o $@ $<
-	@echo -e	$(MAG)"[$(PROJECT) | $(CC)] OK → $@"$(END)					| cat
+	@echo -e	$(MAG)"[$(PROJECT) | $(CC)] OK → $@"$(END)
 #############################################################################################################
 
 
@@ -366,11 +372,10 @@ $(PROJECT): 		$(MAIN) $(OBJ)
 #=============================#
 #############################################################################################################
 .PHONY: BUILD_LIB
-BUILD_LIB: 	CPPFLAGS	+=	$(ELF64)
 BUILD_LIB: 	$(OBJ)
 	@echo -e	"\n\n"$(FRAME_D)
 	@echo -e	$(TITLE)"[$(PROJECT)]: Library $(LIB_NAME) creation:"$(END)
-	$(LD) -o $(LDNAME) $(OBJ) $(LSHARED)
+	@$(LD) -o $(LDNAME) $(OBJ) $(LSHARED)
 	@echo -e  $(TASK_OK)"[$(PROJECT)]: Libraries created in $(LIB_FOLDER) folder !\n\n"$(END)
 
 
@@ -395,7 +400,7 @@ BUILD_LIB: 	$(OBJ)
 #############################################################################################################
 .PHONY: $(UTESTS_RUN)
 $(UTESTS_RUN):		CPPFLAGS	+=	$(TESTS_INCLUDES)
-$(UTESTS_RUN):		fclean BUILD_LIB $(OBJ) $(TESTS_OBJ)
+$(UTESTS_RUN):		fclean $(OBJ) $(TESTS_OBJ)
 	@echo -e	"\n\n"$(FRAME_D)								| cat
 	@echo -e	$(GREEN_BG)"[$(PROJECT)]: Testing project"$(END)				| cat
 	@echo -e	$(FRAME_D)									| cat
@@ -408,14 +413,14 @@ $(UTESTS_RUN):		fclean BUILD_LIB $(OBJ) $(TESTS_OBJ)
 	@echo -e	"[$(PROJECT)]: LDFLAGS   = $(LDFLAGS)"						| cat
 	@echo -e	"[$(PROJECT)]: LDLIBS    = $(LDLIBS)"						| cat
 	@echo -e	"[$(PROJECT)]: TFLAGS    = $(TFLAGS)"						| cat
-	@$(CC) -o $(TESTS_BIN) $(TSRC) $(TESTS_SRC) $(CFLAGS) $(LDFLAGS) $(TFLAGS) $(CPPFLAGS) $(LDLIBS)
+	@$(CC) -o $(TESTS_BIN) $(OBJ) $(TESTS_SRC) $(CFLAGS) $(TFLAGS) $(CPPFLAGS) $(LDLIBS)
 
 	@echo -e	$(UL)"\n\n[$(PROJECT)]: Starting UNIT_TESTS binary."$(END)			| cat
 	@echo -e	"[$(PROJECT)]: TRUNFLAGS  = $(TRUNFLAGS)\n"					| cat
 	@-./$(TESTS_BIN) $(TRUNFLAGS)
 
 	@echo -e	"\n\n[$(PROJECT)]: Moving test sources coverage files into $(TESTS_FOLDER)"	| cat
-	@-$(MV) $(TESTS_DIR) test_*.gc*
+	@-$(MV) $(TESTS_DIR)/src/ test_*.gc*
 
 	@echo -e	"[$(PROJECT)]: Gcovr Flags = $(GCOVFLAGS)"					| cat
 	@echo -e	"\n\n"$(FRAME_D)								| cat
@@ -556,9 +561,10 @@ lib_clean:
 .PHONY: $(tests_clean)
 tests_clean:
 	@echo -e	"[$(PROJECT)]: Removing coverage files."					| cat
-	@-$(RM)  *.gc* $(TESTS_DIR)/*.gc*
+	@-$(RM)  *.gc* $(TESTS_DIR)/src/*.gc*
 	@-$(RM)  *.gc* $(LIB_DIR)/*.gc*
-	@-$(RM)  *.gc* $(TESTS_DIR)/*.o
+	@-$(RM)  *.gc* $(TESTS_DIR)/src/*.o
+	@-$(RM)  *.gc* $(TESTS_DIR)/fct/*.o
 
 	@echo -e	"[$(PROJECT)]: Removing test binary."						| cat
 	@-$(RM)   $(TESTS_BIN)
