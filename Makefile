@@ -38,6 +38,7 @@ MAIN_FILE		= 	main.c
 
 SRC_FILES		=	strlen.asm					\
 				strchr.asm					\
+# memset.asm					\
 
 TSRC_FILES		=	#						\
 
