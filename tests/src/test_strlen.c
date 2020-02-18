@@ -32,3 +32,9 @@ Test(strlen, test_4) {
 
     ASSERT_INT(__builtin_strlen(str), my_strlen(str));
 }
+
+Test(strlen, test_5) {
+    char *str = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+
+    ASSERT_INT(__builtin_strlen(str), my_strlen(str));
+}

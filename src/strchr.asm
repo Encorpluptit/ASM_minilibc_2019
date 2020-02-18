@@ -1,8 +1,26 @@
-%include "libasm.inc"
 
     ;; char *strchr(const char *s, int c);
 
+%ifndef _TESTS_
+
+%include "libasm.inc"
+
 strchr:
+%else
+
+bits                64
+section             .text
+global              _strchr
+
+RT_NULL:
+       mov     rax, 0x0
+       RET
+
+END:
+    ret
+
+%endif
+_strchr:
     xor         rax, rax
 
 .loop:

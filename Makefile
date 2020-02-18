@@ -40,6 +40,7 @@ SRC_FILES		=	strlen.asm					\
 				strchr.asm					\
 				memset.asm					\
 
+
 TSRC_FILES		=	#						\
 
 LIB_FILES		=	#						\
@@ -235,7 +236,7 @@ GDB_FLAG		+=	-g
 # Setup TESTS flags for TESTS Rules.
 #TESTS_DEFINE		+=	-DTESTS_RUN
 TESTS_LDLIBS		+=	-lcriterion
-TESTS_FLAGS		+=	--coverage
+TESTS_FLAGS		+=	--coverage -D_TESTS_
 WRAP_MALLOC_FLAGS	=	-Wl,--wrap=malloc
 ifeq ($(WRAP_MALLOC), TRUE)
 	TESTS_FLAGS		+=	$(WRAP_MALLOC_FLAGS)
@@ -318,7 +319,7 @@ TITLE			=	"\e[1;4;31m"
 ####################
 # Rule for "make"
 .PHONY: all
-all: BUILD_LIB
+all: BUILD_LIB $(PROJECT)
 
 ####################
 # Rule for "make re".
@@ -332,7 +333,7 @@ re: fclean all
 ####################
 # Rule for transforming .asm into .o
 %.o: %.asm
-	@$(NASM) $(NASMFLAGS) $(CPPFLAGS) -o $@ $<
+	$(NASM) $(NASMFLAGS) $(CPPFLAGS) -o $@ $<
 	@echo -e	$(MAG)"[$(PROJECT) | $(NASM)] OK → $@"$(END)
 
 ####################

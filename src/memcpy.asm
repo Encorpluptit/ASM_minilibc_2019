@@ -1,7 +1,20 @@
-%include "libasm.inc"
 
     ;; void *memcpy(void *dest, const void *src, size_t n);
 
+%ifndef _TESTS_
+
+%include "libasm.inc"
+
+memcpy:
+%else
+
+bits                64
+section             .text
+global              _memcpy
+
+END:
+    ret
+%endif
 _memcpy:
     mov         rax, rdi
 

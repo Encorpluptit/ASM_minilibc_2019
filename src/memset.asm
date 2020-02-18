@@ -1,28 +1,26 @@
-%include "libasm.inc"
 
     ;; void *memset(void *s, int c, size_t n);
 
-;;  why "src/memset.asm:15: error: symbol `je.loop' undefined"
+%ifndef _TESTS_
 
+%include "libasm.inc"
+
+memset:
+%else
+
+bits                64
+section             .text
+global              _memset
+
+END:
+    ret
+%endif
 _memset:
     mov         rax, rdi
 
 loop_memset:
-    cmp         rdx, 0x00
+    cmp         rdx, 0x0
     je          END
-    mov         [rdi], sil
     dec         rdx
-    inc         rdi
+    mov         [rdi + rdx], sil
     jmp         loop_memset
-
-;; memset:
-;;     xor         rcx, rcx
-;;     mov         rax, rdi
-
-;; loop_memset:
-;;     cmp         rdx, 0x0
-;;     je          END
-;;     mov         [rdi + rcx], sil
-;;     inc         rdi
-;;     loop        loop_memset
-    ;; jmp         .loop

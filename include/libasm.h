@@ -10,12 +10,21 @@
 
 #include <stddef.h>
 
+#ifndef _TESTS_
 size_t strlen(const char *s);
 
 char *strchr(const char *s, int c);
 
+void *memset(void *s, int c, size_t n);
+
+#else
+
+size_t _strlen(const char *s);
+
+char *_strchr(const char *s, int c);
+
 void *_memset(void *s, int c, size_t n);
 
-/* void *_memcpy(void *dest, const void *src, size_t n); */
+#endif /* _TESTS_ */
 
 #endif /* _MINILIBC_H_ */
