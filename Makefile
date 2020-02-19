@@ -41,6 +41,7 @@ SRC_FILES		=	strlen.asm					\
 				memset.asm					\
 				memcpy.asm					\
 				strcmp.asm					\
+				strncmp.asm					\
 
 
 TSRC_FILES		=	#						\
@@ -57,6 +58,8 @@ TESTS_FILES		=	src/test_strlen.c				\
 				fct/memcpy.c					\
 				src/test_strcmp.c				\
 				fct/strcmp.c					\
+				src/test_strncmp.c				\
+				fct/strncmp.c					\
 
 #############################################################################################################
 
@@ -327,7 +330,8 @@ TITLE			=	"\e[1;4;31m"
 ####################
 # Rule for "make"
 .PHONY: all
-all: BUILD_LIB $(PROJECT)
+all: BUILD_LIB
+# all: BUILD_LIB $(PROJECT)
 
 ####################
 # Rule for "make re".
@@ -341,7 +345,7 @@ re: fclean all
 ####################
 # Rule for transforming .asm into .o
 %.o: %.asm
-	$(NASM) $(NASMFLAGS) $(CPPFLAGS) -o $@ $<
+	@$(NASM) $(NASMFLAGS) $(CPPFLAGS) -o $@ $<
 	@echo -e	$(MAG)"[$(PROJECT) | $(NASM)] OK → $@"$(END)
 
 ####################

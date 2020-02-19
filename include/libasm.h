@@ -31,5 +31,12 @@ int strcmp(const char *s1, const char *s2);
 int _strcmp(const char *s1, const char *s2);
 int my_strcmp(const char *s1, const char *s2);
 
+int strncmp(const char *s1, const char *s2, size_t n);
+int _strncmp(const char *s1, const char *s2, size_t n);
+int my_strncmp(const char *s1, const char *s2, size_t n);
+
+int strncmp(const char *s1, const char *s2, size_t n);
+int _strncmp(const char *s1, const char *s2, size_t n);
+int my_strncmp(const char *s1, const char *s2, size_t n);
 
 #endif /* _MINILIBC_H_ */

@@ -8,28 +8,32 @@
 #include "libasm.h"
 #include "tests_run.h"
 
-Test(strchr, test_1) {
+Test(strchr, test_1)
+{
     char *str = "XDDDDDDDDDDDDDDDDDD";
     char c = 'D';
 
     cr_assert_str_eq(__builtin_strchr(str, c), my_strchr(str, c));
 }
 
-Test(strchr, test_2) {
+Test(strchr, test_2)
+{
     char *str = "";
     char c = 'D';
 
     cr_assert_eq(__builtin_strchr(str, c), my_strchr(str, c));
 }
 
-Test(strchr, test_3) {
+Test(strchr, test_3)
+{
     char *str = "AAAAAo";
     char c = 'o';
 
     cr_assert_str_eq(__builtin_strchr(str, c), my_strchr(str, c));
 }
 
-Test(strchr, test_4) {
+Test(strchr, test_4)
+{
     char *str = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAX";
     char c = 'o';
@@ -37,7 +41,8 @@ Test(strchr, test_4) {
     cr_assert_eq(__builtin_strchr(str, c), my_strchr(str, c));
 }
 
-Test(strchr, test_5) {
+Test(strchr, test_5)
+{
     char *str = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAo";
     char c = 'o';
@@ -45,7 +50,8 @@ Test(strchr, test_5) {
     cr_assert_str_eq(__builtin_strchr(str, c), my_strchr(str, c));
 }
 
-Test(strchr, test_6) {
+Test(strchr, test_6)
+{
     size_t sz = 5;
     size_t pos = 4;
     char fill = 'a';
@@ -60,7 +66,8 @@ Test(strchr, test_6) {
     cr_assert_str_eq(__builtin_strchr(str, c), my_strchr(str, c));
 }
 
-Test(strchr, test_7) {
+Test(strchr, test_7)
+{
     size_t sz = 500;
     size_t pos = 4;
     char fill = 'a';
@@ -75,7 +82,8 @@ Test(strchr, test_7) {
     cr_assert_str_eq(__builtin_strchr(str, c), my_strchr(str, c));
 }
 
-Test(strchr, test_8) {
+Test(strchr, test_8)
+{
     size_t sz = 5000;
     size_t pos = 400;
     char fill = 'x';
@@ -90,7 +98,8 @@ Test(strchr, test_8) {
     cr_assert_str_eq(__builtin_strchr(str, c), my_strchr(str, c));
 }
 
-Test(strchr, test_9) {
+Test(strchr, test_9)
+{
     size_t sz = 500;
     size_t pos = 2;
     char fill = 's';
@@ -105,7 +114,8 @@ Test(strchr, test_9) {
     cr_assert_str_eq(__builtin_strchr(str, c), my_strchr(str, c));
 }
 
-Test(strchr, test_10) {
+Test(strchr, test_10)
+{
     size_t sz = 10000;
     size_t pos = 500;
     char fill = 'g';
