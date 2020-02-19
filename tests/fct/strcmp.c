@@ -8,7 +8,7 @@
 #include "libasm.h"
 #include "tests_run.h"
 
-char *my_strchr(const char *s, int c)
+int my_strcmp(const char *s1, const char *s2)
 {
-    return _strchr(s, c);
+    return _strcmp(s1, s2);
 }

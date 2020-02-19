@@ -1,33 +1,26 @@
+bits                64
+section             .text
+global              memcpy
+global              _memcpy
 
     ;; void *memcpy(void *dest, const void *src, size_t n);
 
-%ifndef _TESTS_
-
-%include "libasm.inc"
-
-memcpy:
-%else
-
-bits                64
-section             .text
-global              _memcpy
-
-END:
-    ret
-%endif
 _memcpy:
+memcpy:
     mov         rax, rdi
 
-loop_memcpy:
+.loop:
     cmp         rdx, 0x00
-    je          END
+    je          .end
     mov         r9b, [rsi]
     mov         [rdi], r9b
     dec         rdx
     inc         rsi
     inc         rdi
-    jmp         loop_memcpy
+    jmp         .loop
 
+.end:
+    ret
 
 ;; memcpy:
 ;;     xor         rcx, rcx

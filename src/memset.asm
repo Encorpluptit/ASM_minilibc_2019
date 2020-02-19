@@ -1,26 +1,20 @@
+bits                64
+section             .text
+global              memset
+global              _memset
 
     ;; void *memset(void *s, int c, size_t n);
 
-%ifndef _TESTS_
-
-%include "libasm.inc"
-
-memset:
-%else
-
-bits                64
-section             .text
-global              _memset
-
-END:
-    ret
-%endif
 _memset:
+memset:
     mov         rax, rdi
 
-loop_memset:
+.loop:
     cmp         rdx, 0x0
-    je          END
+    je          .end
     dec         rdx
     mov         [rdi + rdx], sil
-    jmp         loop_memset
+    jmp         .loop
+
+.end:
+    ret

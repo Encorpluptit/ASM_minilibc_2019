@@ -8,7 +8,7 @@
 #include "libasm.h"
 #include "tests_run.h"
 
-char *my_strchr(const char *s, int c)
+void *my_memcpy(void *dest, const void *src, size_t n)
 {
-    return _strchr(s, c);
+    return _memcpy(dest, src, n);
 }

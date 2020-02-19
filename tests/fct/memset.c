@@ -8,7 +8,7 @@
 #include "libasm.h"
 #include "tests_run.h"
 
-char *my_strchr(const char *s, int c)
+void *my_memset(void *s, int c, size_t n)
 {
-    return _strchr(s, c);
+    return _memset(s, c, n);
 }

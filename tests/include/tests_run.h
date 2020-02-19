@@ -32,8 +32,4 @@ static inline void redirect_all_std(void)
 
 #define ASSERT_INT(a, b) cr_assert_eq(a, b, "Expected %d, got %d\n", b, a)
 
-size_t my_strlen(const char *s);
-
-char *my_strchr(const char *s, int c);
-
 #endif /* __TESTS_RUN_H__ */

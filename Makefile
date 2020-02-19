@@ -39,6 +39,8 @@ MAIN_FILE		= 	main.c
 SRC_FILES		=	strlen.asm					\
 				strchr.asm					\
 				memset.asm					\
+				memcpy.asm					\
+				strcmp.asm					\
 
 
 TSRC_FILES		=	#						\
@@ -49,6 +51,12 @@ TESTS_FILES		=	src/test_strlen.c				\
 				fct/strlen.c					\
 				src/test_strchr.c				\
 				fct/strchr.c					\
+				src/test_memset.c				\
+				fct/memset.c					\
+				src/test_memcpy.c				\
+				fct/memcpy.c					\
+				src/test_strcmp.c				\
+				fct/strcmp.c					\
 
 #############################################################################################################
 
@@ -236,7 +244,7 @@ GDB_FLAG		+=	-g
 # Setup TESTS flags for TESTS Rules.
 #TESTS_DEFINE		+=	-DTESTS_RUN
 TESTS_LDLIBS		+=	-lcriterion
-TESTS_FLAGS		+=	--coverage -D_TESTS_
+TESTS_FLAGS		+=	--coverage -DTESTS
 WRAP_MALLOC_FLAGS	=	-Wl,--wrap=malloc
 ifeq ($(WRAP_MALLOC), TRUE)
 	TESTS_FLAGS		+=	$(WRAP_MALLOC_FLAGS)
