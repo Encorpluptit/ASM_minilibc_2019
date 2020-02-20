@@ -6,7 +6,6 @@
 */
 
 #include "libasm.h"
-#include "tests_run.h"
 
 void *my_memcpy(void *dest, const void *src, size_t n)
 {

@@ -6,7 +6,6 @@
 */
 
 #include "libasm.h"
-#include "tests_run.h"
 
 size_t my_strlen(const char *s)
 {

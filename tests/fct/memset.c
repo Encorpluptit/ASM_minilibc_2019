@@ -6,7 +6,6 @@
 */
 
 #include "libasm.h"
-#include "tests_run.h"
 
 void *my_memset(void *s, int c, size_t n)
 {

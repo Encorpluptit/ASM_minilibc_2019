@@ -1,7 +1,7 @@
-bits                64
-section             .text
-global              strlen
-global              _strlen
+	bits                64
+	section             .text
+	global              strlen
+	global              _strlen
 
     ;; size_t strlen(const char *s);
 

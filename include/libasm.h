@@ -39,4 +39,8 @@ int strncmp(const char *s1, const char *s2, size_t n);
 int _strncmp(const char *s1, const char *s2, size_t n);
 int my_strncmp(const char *s1, const char *s2, size_t n);
 
+char *rindex(const char *s, int c);
+char *_rindex(const char *s, int c);
+char *my_rindex(const char *s, int c);
+
 #endif /* _MINILIBC_H_ */

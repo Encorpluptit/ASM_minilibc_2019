@@ -1,7 +1,7 @@
-bits                64
-section             .text
-global              memcpy
-global              _memcpy
+	bits                64
+	section             .text
+	global              memcpy
+	global              _memcpy
 
     ;; void *memcpy(void *dest, const void *src, size_t n);
 

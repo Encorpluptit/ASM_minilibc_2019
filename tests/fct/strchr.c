@@ -6,7 +6,6 @@
 */
 
 #include "libasm.h"
-#include "tests_run.h"
 
 char *my_strchr(const char *s, int c)
 {

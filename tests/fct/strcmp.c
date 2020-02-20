@@ -6,7 +6,6 @@
 */
 
 #include "libasm.h"
-#include "tests_run.h"
 
 int my_strcmp(const char *s1, const char *s2)
 {

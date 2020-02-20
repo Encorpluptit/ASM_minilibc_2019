@@ -1,7 +1,7 @@
-bits                64
-section             .text
-global              strcmp
-global              _strcmp
+	bits                64
+	section             .text
+	global              strcmp
+	global              _strcmp
 
     ;; int strcmp(const char *s1, const char *s2);
 
