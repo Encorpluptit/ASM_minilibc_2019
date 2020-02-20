@@ -81,10 +81,12 @@ Test(memset, test_5)
 Test(memset, test_6)
 {
     size_t sz = 5000;
-    char *test = malloc(sizeof(char) * (sz));
-    char *ref = malloc(sizeof(char) * (sz));
+    char *test = malloc(sizeof(char) * (sz + 1));
+    char *ref = malloc(sizeof(char) * (sz + 1));
     int set = 'l';
 
+    test[sz] = '\0';
+    ref[sz] = '\0';
     __builtin_memset(ref, set, sz);
     my_memset(test, set, sz);
     cr_assert_str_eq(test, ref);

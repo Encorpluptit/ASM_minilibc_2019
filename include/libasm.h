@@ -43,4 +43,9 @@ char *rindex(const char *s, int c);
 char *_rindex(const char *s, int c);
 char *my_rindex(const char *s, int c);
 
+void *memmove(void *dest, const void *src, size_t n);
+void *_memmove(void *dest, const void *src, size_t n);
+void *my_memmove(void *dest, const void *src, size_t n);
+
+
 #endif /* _MINILIBC_H_ */

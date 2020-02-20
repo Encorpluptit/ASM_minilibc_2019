@@ -40,6 +40,7 @@ SRC_FILES		=	strlen.asm					\
 				strchr.asm					\
 				memset.asm					\
 				memcpy.asm					\
+				memmove.asm					\
 				strcmp.asm					\
 				strncmp.asm					\
 				rindex.asm					\
@@ -57,6 +58,8 @@ TESTS_FILES		=	src/test_strlen.c				\
 				fct/memset.c					\
 				src/test_memcpy.c				\
 				fct/memcpy.c					\
+				src/test_memmove.c				\
+				fct/memmove.c					\
 				src/test_strcmp.c				\
 				fct/strcmp.c					\
 				src/test_strncmp.c				\

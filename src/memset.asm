@@ -1,20 +1,41 @@
 bits                64
 section             .text
-global              memset
-global              _memset
+	global              memset
+	global              _memset
 
-    ;; void *memset(void *s, int c, size_t n);
+;-----------------------------------------------------------------------------
+; @function     memset
+; @prototype    void *memset(void *s, int c, size_t n);
+; @brief        Fill a region of memory with a single byte value.
+; @reg[in]      rdi     Address of the destination memory area.
+; @reg[in]      rsi     Value of the byte used to fill memory.
+; @reg[in]      rdx     Number of bytes to set.
+; @reg[out]     rax     Destination address.
+; @killedregs   r8, rcx
+;-----------------------------------------------------------------------------
 
 _memset:
 memset:
-    mov         rax, rdi
+    mov         r8, rdi         ; Preserve the original destination address.
 
-.loop:
-    cmp         rdx, 0x0
-    je          .end
-    dec         rdx
-    mov         [rdi + rdx], sil
-    jmp         .loop
+    mov         rax, rsi        ; The value to store is the second parameter (rsi).
+    mov         rcx, rdx        ; Do a byte-by-byte store.
+    rep         stosb
 
-.end:
+    mov         rax, r8         ; Return the original destination address.
     ret
+
+
+;; _memset:
+;; memset:
+;;     mov         rax, rdi
+
+;; .loop:
+;;     cmp         rdx, 0x0
+;;     je          .end
+;;     dec         rdx
+;;     mov         [rdi + rdx], sil
+;;     jmp         .loop
+
+;; .end:
+;;     ret
