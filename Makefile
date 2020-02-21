@@ -44,6 +44,7 @@ SRC_FILES		=	strlen.asm					\
 				strcmp.asm					\
 				strncmp.asm					\
 				rindex.asm					\
+				strstr.asm					\
 
 
 TSRC_FILES		=	#						\
@@ -66,6 +67,8 @@ TESTS_FILES		=	src/test_strlen.c				\
 				fct/strncmp.c					\
 				src/test_rindex.c				\
 				fct/rindex.c					\
+				src/test_strstr.c				\
+				fct/strstr.c					\
 
 #############################################################################################################
 

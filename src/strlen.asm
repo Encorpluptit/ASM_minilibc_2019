@@ -1,5 +1,5 @@
-	bits                64
-	section             .text
+bits                64
+section             .text
 	global              strlen
 	global              _strlen
 

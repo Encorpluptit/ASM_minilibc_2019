@@ -1,9 +1,18 @@
-	bits                64
-	section             .text
+bits                64
+section             .text
 	global              rindex
 	global              _rindex
 
-    ;; char *rindex(const char *s, int c);
+;-----------------------------------------------------------------------------
+; @function     rindex
+; @prototype    char *rindex(const char *s, int c);
+; @brief        Returns a pointer to the last occurrence of the character c
+;               in the string s.
+; @reg[in]      rdi     Address of the memory to search in.
+; @reg[in]      sil     Char to find (Least significant byte).
+; @reg[out]     rax     Index found.
+; @killedregs
+;-----------------------------------------------------------------------------
 
 _rindex:
 rindex:

@@ -24,18 +24,3 @@ memset:
 
     mov         rax, r8         ; Return the original destination address.
     ret
-
-
-;; _memset:
-;; memset:
-;;     mov         rax, rdi
-
-;; .loop:
-;;     cmp         rdx, 0x0
-;;     je          .end
-;;     dec         rdx
-;;     mov         [rdi + rdx], sil
-;;     jmp         .loop
-
-;; .end:
-;;     ret

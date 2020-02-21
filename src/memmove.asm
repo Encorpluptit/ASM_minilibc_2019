@@ -3,8 +3,17 @@ section             .text
 	global              memmove
 	global              _memmove
 
-    ;; void *memmove(void *dest, const void *src, size_t n);
-
+;-----------------------------------------------------------------------------
+; @function     memmove
+; @brief        Move bytes from one memory region to another, even if the
+;               regions overlap.
+; @prototype    void *memmove(void *dest, const void *src, size_t n);
+; @reg[in]      rdi     Address of the destination memory area.
+; @reg[in]      rsi     Address of the source memory area.
+; @reg[in]      rdx     Number of bytes to copy.
+; @reg[out]     rax     Destination address.
+; @killedregs   rcx
+;-----------------------------------------------------------------------------
 _memmove:
 memmove:
     ; Preserve destination address because we have to return it.

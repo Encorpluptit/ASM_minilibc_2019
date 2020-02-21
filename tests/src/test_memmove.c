@@ -8,7 +8,7 @@
 #include "libasm.h"
 #include "tests_run.h"
 
-Test(memmove, test_1, .disabled=true)
+Test(memmove, test_1)
 {
     char str1[] = "Geeks";
     char str2[] = "Hello";
@@ -81,5 +81,38 @@ Test(memmove, test_7)
 
     my_memmove(test + 6, ref, sz);
     cr_assert_str_eq(test, "aaaaaalol");
+    free(test);
+}
+
+Test(memmove, test_8)
+{
+    size_t sz = 3;
+    char *ref = "lol";
+    char *test = strdup("aezfsidhbvba");
+
+    cr_assert_str_eq(my_memmove(test + 6, ref, sz),
+                    __builtin_memmove(test + 6, ref, sz));
+    free(test);
+}
+
+Test(memmove, test_9)
+{
+    size_t sz = 3;
+    char *ref = "lol";
+    char *test = strdup("aezfsidhbvba");
+
+    cr_assert_str_eq(my_memmove(test, ref, sz),
+                    __builtin_memmove(test, ref, sz));
+    free(test);
+}
+
+Test(memmove, test_10)
+{
+    size_t sz = 3;
+    char *ref = "lol";
+    char *test = strdup("aezfsidhbvba");
+
+    cr_assert_str_eq(my_memmove(test + 10, ref, sz),
+                    __builtin_memmove(test + 10, ref, sz));
     free(test);
 }

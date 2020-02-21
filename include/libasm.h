@@ -47,5 +47,8 @@ void *memmove(void *dest, const void *src, size_t n);
 void *_memmove(void *dest, const void *src, size_t n);
 void *my_memmove(void *dest, const void *src, size_t n);
 
+char *strstr(const char *haystack, const char *needle);
+char *_strstr(const char *haystack, const char *needle);
+char *my_strstr(const char *haystack, const char *needle);
 
 #endif /* _MINILIBC_H_ */
