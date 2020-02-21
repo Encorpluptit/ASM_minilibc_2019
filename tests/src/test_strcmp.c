@@ -60,6 +60,8 @@ Test(strcmp, test_6)
     test[sz] = '\0';
     ref[sz] = '\0';
     ASSERT_INT(my_strcmp(ref, test), __builtin_strcmp(ref, test));
+    free(test);
+    free(ref);
 }
 
 Test(strcmp, test_7)
@@ -74,6 +76,8 @@ Test(strcmp, test_7)
     test[sz] = '\0';
     ref[sz] = '\0';
     ASSERT_INT(my_strcmp(ref, test), __builtin_strcmp(ref, test));
+    free(test);
+    free(ref);
 }
 
 Test(strcmp, test_8)
@@ -88,6 +92,8 @@ Test(strcmp, test_8)
     test[sz] = '\0';
     ref[sz] = '\0';
     ASSERT_INT(my_strcmp(ref, test), __builtin_strcmp(ref, test));
+    free(test);
+    free(ref);
 }
 
 Test(strcmp, test_9)
@@ -102,6 +108,8 @@ Test(strcmp, test_9)
     test[sz] = '\0';
     ref[sz] = '\0';
     ASSERT_INT(my_strcmp(ref, test), __builtin_strcmp(ref, test));
+    free(test);
+    free(ref);
 }
 
 Test(strcmp, test_10)
@@ -116,6 +124,8 @@ Test(strcmp, test_10)
     test[sz] = '\0';
     ref[sz] = '\0';
     ASSERT_INT(my_strcmp(ref, test), __builtin_strcmp(ref, test));
+    free(test);
+    free(ref);
 }
 
 Test(strcmp, test_11)
@@ -173,6 +183,8 @@ Test(strcmp, test_16)
     test[sz] = '\0';
     ref[sz] = '\0';
     ASSERT_INT(my_strcmp(ref, test), __builtin_strcmp(ref, test));
+    free(test);
+    free(ref);
 }
 
 Test(strcmp, test_17)
@@ -190,6 +202,8 @@ Test(strcmp, test_17)
     test[sz] = '\0';
     ref[sz] = '\0';
     ASSERT_INT(my_strcmp(ref, test), __builtin_strcmp(ref, test));
+    free(test);
+    free(ref);
 }
 
 Test(strcmp, test_18)
@@ -207,6 +221,8 @@ Test(strcmp, test_18)
     test[sz] = '\0';
     ref[sz] = '\0';
     ASSERT_INT(my_strcmp(ref, test), __builtin_strcmp(ref, test));
+    free(test);
+    free(ref);
 }
 
 Test(strcmp, test_19)
@@ -224,6 +240,8 @@ Test(strcmp, test_19)
     test[sz] = '\0';
     ref[sz] = '\0';
     ASSERT_INT(my_strcmp(ref, test), __builtin_strcmp(ref, test));
+    free(test);
+    free(ref);
 }
 
 Test(strcmp, test_20)
@@ -241,6 +259,8 @@ Test(strcmp, test_20)
     test[sz] = '\0';
     ref[sz] = '\0';
     ASSERT_INT(my_strcmp(ref, test), __builtin_strcmp(ref, test));
+    free(test);
+    free(ref);
 }
 
 Test(strcmp, test_21)
@@ -258,6 +278,8 @@ Test(strcmp, test_21)
     test[sz] = '\0';
     ref[sz] = '\0';
     ASSERT_INT(my_strcmp(ref, test), __builtin_strcmp(ref, test));
+    free(test);
+    free(ref);
 }
 
 Test(strcmp, test_22)
@@ -275,6 +297,8 @@ Test(strcmp, test_22)
     test[sz] = '\0';
     ref[sz] = '\0';
     ASSERT_INT(my_strcmp(ref, test), __builtin_strcmp(ref, test));
+    free(test);
+    free(ref);
 }
 
 Test(strcmp, test_23)
@@ -292,6 +316,8 @@ Test(strcmp, test_23)
     test[sz] = '\0';
     ref[sz] = '\0';
     ASSERT_INT(my_strcmp(ref, test), __builtin_strcmp(ref, test));
+    free(test);
+    free(ref);
 }
 
 Test(strcmp, test_24)
@@ -309,6 +335,8 @@ Test(strcmp, test_24)
     test[sz] = '\0';
     ref[sz] = '\0';
     ASSERT_INT(my_strcmp(ref, test), __builtin_strcmp(ref, test));
+    free(test);
+    free(ref);
 }
 
 Test(strcmp, test_25)
@@ -326,6 +354,8 @@ Test(strcmp, test_25)
     test[sz] = '\0';
     ref[sz] = '\0';
     ASSERT_INT(my_strcmp(ref, test), __builtin_strcmp(ref, test));
+    free(test);
+    free(ref);
 }
 
 Test(strcmp, test_26)
@@ -343,6 +373,8 @@ Test(strcmp, test_26)
     test[sz] = '\0';
     ref[sz] = '\0';
     ASSERT_INT(my_strcmp(ref, test), __builtin_strcmp(ref, test));
+    free(test);
+    free(ref);
 }
 
 Test(strcmp, test_27)
@@ -360,6 +392,8 @@ Test(strcmp, test_27)
     test[sz] = '\0';
     ref[sz] = '\0';
     ASSERT_INT(my_strcmp(ref, test), __builtin_strcmp(ref, test));
+    free(test);
+    free(ref);
 }
 
 Test(strcmp, test_28)
@@ -377,6 +411,8 @@ Test(strcmp, test_28)
     test[sz] = '\0';
     ref[sz] = '\0';
     ASSERT_INT(my_strcmp(ref, test), __builtin_strcmp(ref, test));
+    free(test);
+    free(ref);
 }
 
 Test(strcmp, test_29)
@@ -394,6 +430,8 @@ Test(strcmp, test_29)
     test[sz] = '\0';
     ref[sz] = '\0';
     ASSERT_INT(my_strcmp(ref, test), __builtin_strcmp(ref, test));
+    free(test);
+    free(ref);
 }
 
 Test(strcmp, test_30)
@@ -411,6 +449,8 @@ Test(strcmp, test_30)
     test[sz] = '\0';
     ref[sz] = '\0';
     ASSERT_INT(my_strcmp(ref, test), __builtin_strcmp(ref, test));
+    free(test);
+    free(ref);
 }
 
 Test(strcmp, test_31)
@@ -428,6 +468,8 @@ Test(strcmp, test_31)
     test[sz] = '\0';
     ref[sz] = '\0';
     ASSERT_INT(my_strcmp(ref, test), __builtin_strcmp(ref, test));
+    free(test);
+    free(ref);
 }
 
 Test(strcmp, test_32)
@@ -445,6 +487,8 @@ Test(strcmp, test_32)
     test[sz] = '\0';
     ref[sz] = '\0';
     ASSERT_INT(my_strcmp(ref, test), __builtin_strcmp(ref, test));
+    free(test);
+    free(ref);
 }
 
 Test(strcmp, test_33)
@@ -462,6 +506,8 @@ Test(strcmp, test_33)
     test[sz] = '\0';
     ref[sz] = '\0';
     ASSERT_INT(my_strcmp(ref, test), __builtin_strcmp(ref, test));
+    free(test);
+    free(ref);
 }
 
 Test(strcmp, test_34)
@@ -479,6 +525,8 @@ Test(strcmp, test_34)
     test[sz] = '\0';
     ref[sz] = '\0';
     ASSERT_INT(my_strcmp(ref, test), __builtin_strcmp(ref, test));
+    free(test);
+    free(ref);
 }
 
 Test(strcmp, test_35)
@@ -496,6 +544,8 @@ Test(strcmp, test_35)
     test[sz] = '\0';
     ref[sz] = '\0';
     ASSERT_INT(my_strcmp(ref, test), __builtin_strcmp(ref, test));
+    free(test);
+    free(ref);
 }
 
 Test(strcmp, test_36)
@@ -513,6 +563,8 @@ Test(strcmp, test_36)
     test[sz] = '\0';
     ref[sz] = '\0';
     ASSERT_INT(my_strcmp(ref, test), __builtin_strcmp(ref, test));
+    free(test);
+    free(ref);
 }
 
 Test(strcmp, test_37)
@@ -530,6 +582,8 @@ Test(strcmp, test_37)
     test[sz] = '\0';
     ref[sz] = '\0';
     ASSERT_INT(my_strcmp(ref, test), __builtin_strcmp(ref, test));
+    free(test);
+    free(ref);
 }
 
 Test(strcmp, test_38)
@@ -547,6 +601,8 @@ Test(strcmp, test_38)
     test[sz] = '\0';
     ref[sz] = '\0';
     ASSERT_INT(my_strcmp(ref, test), __builtin_strcmp(ref, test));
+    free(test);
+    free(ref);
 }
 
 Test(strcmp, test_39)
@@ -564,6 +620,8 @@ Test(strcmp, test_39)
     test[sz] = '\0';
     ref[sz] = '\0';
     ASSERT_INT(my_strcmp(ref, test), __builtin_strcmp(ref, test));
+    free(test);
+    free(ref);
 }
 
 Test(strcmp, test_40)
@@ -578,4 +636,6 @@ Test(strcmp, test_40)
     test[sz] = '\0';
     ref[sz] = '\0';
     ASSERT_INT(my_strcmp(ref, test), __builtin_strcmp(ref, test));
+    free(test);
+    free(ref);
 }
