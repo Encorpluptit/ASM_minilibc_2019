@@ -3,7 +3,15 @@ section             .text
 	global              strlen
 	global              _strlen
 
-    ;; size_t strlen(const char *s);
+;-----------------------------------------------------------------------------
+; @function     strlen
+; @prototype    size_t strlen(const char *s);
+; @brief        Calculates the length of the string pointed to by s,
+;               excluding the terminating null byte ('\0').
+; @reg[in]      rdi     Address of the first string.
+; @reg[out]     rax     Return value.
+; @killedregs
+;-----------------------------------------------------------------------------
 
 _strlen:
 strlen:

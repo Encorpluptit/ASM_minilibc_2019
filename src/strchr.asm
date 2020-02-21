@@ -39,8 +39,7 @@ strchr:
     jmp         .end
 
 .rt_null:
-       mov     rax, 0x0
-       RET
+    mov     rax, 0x0
 
 .end:
     ret

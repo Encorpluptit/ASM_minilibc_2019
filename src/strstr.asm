@@ -3,47 +3,47 @@ section             .text
         global              strstr
         global              _strstr
 
-    ;; char *strstr(const char *haystack, const char *needle);
-
+;-----------------------------------------------------------------------------
+; @function     strstr
+; @prototype    char *strstr(const char *haystack, const char *needle);
+; @brief        Finds the first occurrence of the substring needle
+;               in the string haystack.
+; @details      The terminating null bytes ('\0') are not compared.
+; @reg[in]      rdi     Address of the first string.
+; @reg[in]      rsi     Address of the second string.
+; @reg[out]     rax     Return value.
+; @killedregs   rcx, al
+;-----------------------------------------------------------------------------
 
 _strstr:
 strstr:
-	push rbp
-	mov rbp, rsp
+    xor         rax, rax
+    xor         rcx, rcx
+    jmp         .loop
 
-	jmp reset_count
-start:
-	cmp al, 0
-	je fail
-	inc rdi
+.restart:
+    cmp         al, 0x0
+    je          .end
+    inc         rdi
+    xor         rcx, rcx
 
-reset_count:
-	mov al, [rdi]
-	mov al, [rsi]
-	xor rcx, rcx
+.loop:
+    mov         al, [rdi + rcx]
+    cmp         byte [rsi + rcx], 0x0
+    jz          .found
+    cmp         al, [rsi + rcx]
+    jne         .restart
+    loop        .loop
 
-loop:
-	mov al, [rdi + rcx]
-	mov r8b, [rsi + rcx]
-	cmp r8b, 0
-	jz win
-	cmp al, r8b
-	jne start
-	inc rcx
-	jmp loop
+.found:
+    mov         rax, rdi
 
-win:
-	mov rax, rdi
-	jmp end
+.end:
+    ret
 
-fail:
-	xor rax, rax
 
-end:
-	mov rsp, rbp
-	pop rbp
-
-	ret
+    ;; Godbolt asm code of strstr implemetation with memcmp
+    ;; Usefull to see what i'm missing in ASM langage
 
 ;; strstr:
 ;; _strstr:

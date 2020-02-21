@@ -51,4 +51,8 @@ char *strstr(const char *haystack, const char *needle);
 char *_strstr(const char *haystack, const char *needle);
 char *my_strstr(const char *haystack, const char *needle);
 
+int strcasecmp(const char *s1, const char *s2);
+int _strcasecmp(const char *s1, const char *s2);
+int my_strcasecmp(const char *s1, const char *s2);
+
 #endif /* _MINILIBC_H_ */

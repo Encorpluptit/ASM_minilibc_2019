@@ -45,6 +45,7 @@ SRC_FILES		=	strlen.asm					\
 				strncmp.asm					\
 				rindex.asm					\
 				strstr.asm					\
+				strcasecmp.asm					\
 
 
 TSRC_FILES		=	#						\
@@ -69,6 +70,8 @@ TESTS_FILES		=	src/test_strlen.c				\
 				fct/rindex.c					\
 				src/test_strstr.c				\
 				fct/strstr.c					\
+				src/test_strcasecmp.c				\
+				fct/strcasecmp.c				\
 
 #############################################################################################################
 
@@ -339,7 +342,7 @@ TITLE			=	"\e[1;4;31m"
 ####################
 # Rule for "make"
 .PHONY: all
-all: BUILD_LIB
+all: BUILD_LIB tests_run
 # all: BUILD_LIB $(PROJECT)
 
 ####################
@@ -423,7 +426,7 @@ BUILD_LIB: 	$(OBJ)
 #############################################################################################################
 .PHONY: $(UTESTS_RUN)
 $(UTESTS_RUN):		CPPFLAGS	+=	$(TESTS_INCLUDES)
-$(UTESTS_RUN):		fclean $(OBJ) $(TESTS_OBJ)
+$(UTESTS_RUN):		aclean $(OBJ) $(TESTS_OBJ)
 	@echo -e	"\n\n"$(FRAME_D)								| cat
 	@echo -e	$(GREEN_BG)"[$(PROJECT)]: Testing project"$(END)				| cat
 	@echo -e	$(FRAME_D)									| cat

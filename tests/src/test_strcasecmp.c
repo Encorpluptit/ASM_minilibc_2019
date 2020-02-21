@@ -580,14 +580,6 @@ Test(strcasecmp, test_40)
     ASSERT_INT(my_strcasecmp(ref, test), __builtin_strcasecmp(ref, test));
 }
 
-/*
-** EPITECH PROJECT, 2020
-** MiniLibC
-** File description:
-** Tests source file.
-*/
-
-
 Test(strcasecmp, test_41)
 {
     char *ref = "LooooooooooooL";
