@@ -2,7 +2,6 @@
     section     .text
     global      memcpy
 
-
 %ifdef TESTS
     global      my_memcpy
 my_memcpy:
@@ -22,9 +21,8 @@ my_memcpy:
 ;-----------------------------------------------------------------------------
 
 memcpy:
-    ; Preserve destination address because we have to return it.
-    mov         rax, rdi
+    mov         rax, rdi        ; Preserve destination address to return it.
 
     mov         rcx, rdx
-    rep         movsb
+    rep         movsb           ; Do a byte-by-byte move until rcx == 0.
     ret

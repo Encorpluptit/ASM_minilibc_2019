@@ -54,18 +54,18 @@ TSRC_FILES		=	#						\
 
 LIB_FILES		=	#						\
 
-TESTS_FILES		=	src/test_strlen.c				\
-				src/test_strchr.c				\
-				src/test_memset.c				\
-				src/test_memcpy.c				\
-				src/test_memmove.c				\
-				src/test_strcmp.c				\
-				src/test_strncmp.c				\
-				src/test_rindex.c				\
-				src/test_strstr.c				\
-				src/test_strcasecmp.c				\
-				src/test_strpbrk.c				\
-				src/test_strcspn.c				\
+TESTS_FILES		=	test_strlen.c				\
+				test_strchr.c				\
+				test_memset.c				\
+				test_memcpy.c				\
+				test_memmove.c				\
+				test_strcmp.c				\
+				test_strncmp.c				\
+				test_rindex.c				\
+				test_strstr.c				\
+				test_strcasecmp.c			\
+				test_strpbrk.c				\
+				test_strcspn.c				\
 
 #############################################################################################################
 
@@ -94,7 +94,7 @@ LIB_DIR			=	$(addprefix $(PROJECT_DIR), $(addsuffix /, $(LIB_FOLDER)))
 ####################
 # Setup TESTS directories architecture.
 TESTS_FOLDER		=	tests
-TESTS_SRC_FOLDER	=	.
+TESTS_SRC_FOLDER	=	src
 TESTS_INCLUDE_FOLDER	=	include
 TESTS_RESSOURCES_FOLDER	=	ressources
 TESTS_DIR		=	$(addprefix $(PROJECT_DIR), $(addsuffix /, $(TESTS_FOLDER)))

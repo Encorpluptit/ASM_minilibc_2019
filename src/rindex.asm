@@ -2,7 +2,6 @@
     section     .text
     global      rindex
 
-
 %ifdef TESTS
     global      my_rindex
 my_rindex:
@@ -20,22 +19,22 @@ my_rindex:
 ;-----------------------------------------------------------------------------
 
 rindex:
-    xor         rax, rax
+    xor         rax, rax                ; Set to 0 in case of return
 
 .loop:
-    cmp         [rdi], sil
+    cmp         byte [rdi], sil         ; Compare char to find byte in s
     je          .found
-    cmp         byte [rdi], 0x0
-    je          .end
-    inc         rdi
+    cmp         byte [rdi], 0x0         ; Check if end of s.
+    je          .end                    ; TODO : EXHANGE with abrove et todo remove below
+    inc         rdi                     ; Loop on rdi
     jmp         .loop
 
 .found:
-    mov         rax, rdi
-    cmp         byte [rdi], 0x0
+    mov         rax, rdi                ; Preserve found adress to return it
+    cmp         byte [rdi], 0x0         ; TODO : REMOVE
     je          .end
-    inc         rdi
+    inc         rdi                     ; Loop on rdi
     jmp         .loop
 
 .end:
-    ret
+    ret                                 ; Return

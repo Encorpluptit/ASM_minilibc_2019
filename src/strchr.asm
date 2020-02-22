@@ -2,6 +2,7 @@
     section     .text
     global      strchr
 
+
 %ifdef TESTS
     global      my_strchr
 my_strchr:
@@ -19,25 +20,26 @@ my_strchr:
 ;-----------------------------------------------------------------------------
 
 strchr:
-    xor         rax, rax
+    xor         rax, rax                ; Set rax to 0 by security
+                                        ; TODO : REMOVE
 
 .loop:
-    cmp         byte [rdi], sil
-    je          .rt
-    cmp         byte [rdi], 0x00
+    cmp         byte [rdi], sil         ; Compare byte in rdi with char to find
+    je          .found
+    cmp         byte [rdi], 0x00        ; Compare byte in rdi with '\0'
     je          .rt_null
-    inc         rdi
+    inc         rdi                     ; Loop on rdi
     jmp         .loop
 
-.rt:
-    mov         rax, rdi
-    jmp         .end
-    ;; ret
+.found:
+    mov         rax, rdi                ; Return found adress
+    ;; jmp         .end
+    ret
 
 .rt_null:
-    mov     rax, 0x0
-    ;; ret
-
-.end:
+    mov     rax, 0x0                    ; Return NULL
     ret
+
+;; .end:
+;;     ret
     ;; remove

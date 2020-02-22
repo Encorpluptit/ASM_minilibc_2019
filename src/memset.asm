@@ -2,7 +2,6 @@
     section     .text
     global      memset
 
-
 %ifdef TESTS
     global      my_memset
 my_memset:
@@ -20,7 +19,7 @@ my_memset:
 ;-----------------------------------------------------------------------------
 
 memset:
-    mov         r8, rdi         ; Preserve the original destination address.
+    mov         r8, rdi         ; Preserve the original destination address to return.
 
     mov         rax, rsi        ; The value to store is the second parameter (rsi).
     mov         rcx, rdx        ; Do a byte-by-byte store.

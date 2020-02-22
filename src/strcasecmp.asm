@@ -22,36 +22,73 @@ my_strcasecmp:
 ;-----------------------------------------------------------------------------
 
 strcasecmp:
-	jmp start1
+.check_rdi:
+    mov         r8b, [rdi]
+    cmp         r8b, 'A'
+    jl          .check_rsi
+    cmp         r8b, 'Z'
+    jg          .check_rsi
+    xor         r8b, ' '
+    ;; add         r8b, ' '
 
-start1:
-	mov r8b, [rdi]
-	cmp r8b, 'A'
-	jl start2
+.check_rsi:
+    mov         r9b, [rsi]
+    cmp         r9b, 'A'
+    jl          .cmp
+    cmp         r8b, 'Z'
+    jg          .cmp
+    xor         r9b, ' '
+    ;; add         r9b, ' '
 
-t_lower1:
-	add r8b, ' '
-
-start2:
-	mov r9b, [rsi]
-	cmp r9b, 'A'
-	jl compare
-
-t_lower2:
-	add r9b, ' '
-
-compare:
-	cmp r8b, r9b
-	jne .end
-	cmp r8b, 0x0
-	je .end
-	cmp r9b, 0x0
-	je .end
-	inc rsi
-	inc rdi
-	jmp start1
+.cmp:
+    cmp         r8b, r9b
+    jne         .end
+    cmp         r9b, 0x0
+    je          .end
+    cmp         r8b, 0x0
+    je          .end
+    inc         rdi
+    inc         rsi
+    jmp         .check_rdi
 
 .end:
-	sub r8b, r9b
-	movsx rax, r8b
-	ret
+    sub         r8b, r9b
+    movsx       rax, r8b
+    ret
+
+
+
+;; strcasecmp:
+;; 	jmp start1
+
+;; start1:
+;; 	mov r8b, [rdi]
+;; 	cmp r8b, 'A'
+;; 	jl start2
+
+;; t_lower1:
+;; 	add r8b, ' '
+
+;; start2:
+;; 	mov r9b, [rsi]
+;; 	cmp r9b, 'A'
+;; 	jl compare
+
+;; t_lower2:
+;; 	add r9b, ' '
+
+;; compare:
+;; 	cmp r8b, r9b
+;; 	jne .end
+;; 	cmp r8b, 0x0
+;; 	je .end
+;; 	cmp r9b, 0x0
+;; 	je .end
+;; 	inc rsi
+;; 	inc rdi
+;; 	jmp start1
+
+;; .end:
+;; 	sub r8b, r9b
+;; 	movsx rax, r8b
+;; 	ret
