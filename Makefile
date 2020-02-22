@@ -47,6 +47,7 @@ SRC_FILES		=	strlen.asm					\
 				strstr.asm					\
 				strcasecmp.asm					\
 				strpbrk.asm					\
+				strcspn.asm					\
 
 
 TSRC_FILES		=	#						\
