@@ -46,6 +46,7 @@ SRC_FILES		=	strlen.asm					\
 				rindex.asm					\
 				strstr.asm					\
 				strcasecmp.asm					\
+				strpbrk.asm					\
 
 
 TSRC_FILES		=	#						\
@@ -72,6 +73,8 @@ TESTS_FILES		=	src/test_strlen.c				\
 				fct/strstr.c					\
 				src/test_strcasecmp.c				\
 				fct/strcasecmp.c				\
+				src/test_strpbrk.c				\
+				fct/strpbrk.c					\
 
 #############################################################################################################
 
