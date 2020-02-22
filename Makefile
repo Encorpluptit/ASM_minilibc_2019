@@ -75,6 +75,8 @@ TESTS_FILES		=	src/test_strlen.c				\
 				fct/strcasecmp.c				\
 				src/test_strpbrk.c				\
 				fct/strpbrk.c					\
+				src/test_strcspn.c				\
+				fct/strcspn.c					\
 
 #############################################################################################################
 

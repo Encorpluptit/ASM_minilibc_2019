@@ -5,6 +5,19 @@ section         .text
     global      _strpbrk
 
 
+;-----------------------------------------------------------------------------
+; @function     strpbrk
+; @prototype    char *strpbrk(const char *s, const char *accept);
+; @brief        Locates the first occurrence in the string s of any of
+;               the bytes in the string accept.
+; @return       Pointer to the byte in s that matches one of the bytes
+;               in accept, or NULL if no such byte is found.
+; @reg[in]      rdi     Address of source memory to search in (s).
+; @reg[in]      rsi     Address of byte memory to find (accept).
+; @reg[out]     rax     First bytes found or NULL.
+; @killedregs   rcx, r8
+;-----------------------------------------------------------------------------
+
 _strpbrk:
 strpbrk:
     jmp         .start

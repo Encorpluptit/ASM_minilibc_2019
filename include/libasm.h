@@ -59,4 +59,8 @@ char *strpbrk(const char *s, const char *accept);
 char *_strpbrk(const char *s, const char *accept);
 char *my_strpbrk(const char *s, const char *accept);
 
+size_t strcspn(const char *s, const char *reject);
+size_t _strcspn(const char *s, const char *reject);
+size_t my_strcspn(const char *s, const char *reject);
+
 #endif /* _MINILIBC_H_ */
