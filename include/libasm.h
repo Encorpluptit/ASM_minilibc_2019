@@ -55,4 +55,8 @@ int strcasecmp(const char *s1, const char *s2);
 int _strcasecmp(const char *s1, const char *s2);
 int my_strcasecmp(const char *s1, const char *s2);
 
+char *strpbrk(const char *s, const char *accept);
+char *_strpbrk(const char *s, const char *accept);
+char *my_strpbrk(const char *s, const char *accept);
+
 #endif /* _MINILIBC_H_ */
