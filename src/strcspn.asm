@@ -21,32 +21,31 @@ my_strcspn:
 ;-----------------------------------------------------------------------------
 
 strcspn:
-    xor         rcx, rcx
-    jmp         .start
+    xor         rcx, rcx                ; Set rcx to 0
+    jmp         .start                  ; Bypass rcx incrementation
     ;; jrcxz       .start
 
 .loop:
     inc         rcx
 .start:
-    mov         al, byte [rdi + rcx]
-    cmp         al, 0x0
-    je          .end
-    ;; je          .rt_null
-    xor         r9, r9
+    mov         al, byte [rdi + rcx]    ; Store actual byte from s into al.
+    cmp         al, 0x0                 ; If byte == '\0', jump to end label.
+    je          .end                    ;
+    xor         r9, r9                  ; Reset r9 count for rsi (reject)
 
 .sub_str:
-    mov         r8b, byte [rsi + r9]
-    cmp         r8b, 0x0
-    je          .loop
-    cmp         r8b, al
-    je          .end
-    inc         r9
-    jmp         .sub_str
+    mov         r8b, byte [rsi + r9]    ; Store actual byte from rsi into r8b.
+    cmp         r8b, 0x0                ; If byte == '\0', jump to loop label.
+    je          .loop                   ;
+    cmp         r8b, al                 ; If rsi byte == rdi byte, jump to end label.
+    je          .end                    ;
+    inc         r9                      ; Loop on rsi
+    jmp         .sub_str                ;
 
 .rt_null:
-    mov         rax, 0x0
-    ret
+    mov         rax, 0x0                ; Return NULL;
+    ret                                 ;
 
 .end:
-    mov         rax, rcx
-    ret
+    mov         rax, rcx                ; Return index (rcx count)
+    ret                                 ;

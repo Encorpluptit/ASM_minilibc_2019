@@ -23,7 +23,7 @@ memset:
 
     mov         rax, rsi        ; The value to store is the second parameter (rsi).
     mov         rcx, rdx        ; Do a byte-by-byte store.
-    rep         stosb
+    rep         stosb           ;
 
     mov         rax, r8         ; Return the original destination address.
-    ret
+    ret                         ;

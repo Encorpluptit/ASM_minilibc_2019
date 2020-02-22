@@ -41,27 +41,11 @@ strncmp:
     jne         .rt_end
     loop        .loop
 
-;; .loop:
-;;     cmp         rcx, rdx
-;;     je          .rt_null
-;;     mov         r8b, byte [rsi + rcx]
-;;     mov         al, byte [rdi + rcx]
-;;     cmp         r8, 0x0
-;;     je          .rt_end
-;;     cmp         al, 0x0
-;;     je          .rt_end
-;;     cmp         al, r8b
-;;     jne         .rt_end
-;;     loop        .loop
-
 .rt_end:
     sub         al, r8b
     movsx       rax, al
-    jmp         .end
+    ret
 
 .rt_null:
     mov     rax, 0x0
-    ret
-
-.end:
     ret

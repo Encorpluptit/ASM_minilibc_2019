@@ -14,27 +14,27 @@ my_rindex:
 ;               in the string s.
 ; @reg[in]      rdi     Address of the memory to search in.
 ; @reg[in]      sil     Char to find (Least significant byte).
-; @reg[out]     rax     Index found.
+; @reg[out]     rax     Found adress.
 ; @killedregs
 ;-----------------------------------------------------------------------------
 
 rindex:
-    xor         rax, rax                ; Set to 0 in case of return
+    xor         rax, rax                ; Set to 0 in case of return.
 
 .loop:
-    cmp         byte [rdi], sil         ; Compare char to find byte in s
-    je          .found
+    cmp         byte [rdi], sil         ; Compare char to find byte in s.
+    je          .found                  ;
     cmp         byte [rdi], 0x0         ; Check if end of s.
-    je          .end                    ; TODO : EXHANGE with abrove et todo remove below
-    inc         rdi                     ; Loop on rdi
-    jmp         .loop
+    je          .end                    ;
+    inc         rdi                     ; Loop on rdi.
+    jmp         .loop                   ;
 
 .found:
-    mov         rax, rdi                ; Preserve found adress to return it
-    cmp         byte [rdi], 0x0         ; TODO : REMOVE
-    je          .end
-    inc         rdi                     ; Loop on rdi
-    jmp         .loop
+    mov         rax, rdi                ; Preserve found adress to return it.
+    cmp         byte [rdi], 0x0         ; Compare byte in rdi with '\0'
+    je          .end                    ;
+    inc         rdi                     ; Loop on rdi.
+    jmp         .loop                   ;
 
 .end:
-    ret                                 ; Return
+    ret                                 ; Return Stored address.

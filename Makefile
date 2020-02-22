@@ -337,6 +337,7 @@ TITLE			=	"\e[1;4;31m"
 # Rule for "make"
 .PHONY: all
 all: BUILD_LIB
+# all: BUILD_LIB $(PROJECT)
 
 ####################
 # Rule for "make re".
@@ -368,6 +369,7 @@ re: fclean all
 #=============================#
 #############################################################################################################
 .PHONY: $(PROJECT)
+$(PROJECT): 		CFLAGS		+=	$(TESTS_FLAGS)
 $(PROJECT): 		$(MAIN) $(OBJ)
 	@echo -e	"\n\n"$(FRAME_D)								| cat
 	@echo -e	$(TITLE)"[$(PROJECT)]: Building with following options (ordered):"$(END)	| cat

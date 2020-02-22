@@ -25,21 +25,16 @@ strchr:
 
 .loop:
     cmp         byte [rdi], sil         ; Compare byte in rdi with char to find
-    je          .found
+    je          .found                  ;
     cmp         byte [rdi], 0x00        ; Compare byte in rdi with '\0'
-    je          .rt_null
+    je          .rt_null                ;
     inc         rdi                     ; Loop on rdi
-    jmp         .loop
+    jmp         .loop                   ;
 
 .found:
     mov         rax, rdi                ; Return found adress
-    ;; jmp         .end
-    ret
+    ret                                 ;
 
 .rt_null:
     mov     rax, 0x0                    ; Return NULL
-    ret
-
-;; .end:
-;;     ret
-    ;; remove
+    ret                                 ;

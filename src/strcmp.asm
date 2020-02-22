@@ -20,46 +20,28 @@ my_strcmp:
 ; @killedregs   rcx, r8, al
 ;-----------------------------------------------------------------------------
 
+;-----------------------------------------------------------------------------
+;                       MACRO(S)
+%macro ASSERT 1
+    cmp         %1, 0x0                 ; If char == '\0', jump to return label end.
+    je          .end                    ;
+%endmacro
+;-----------------------------------------------------------------------------
+
 strcmp:
-    xor         r8, r8
-    xor         rcx,rcx
+    xor         rcx, rcx                ; Reset counter to 0 to be sure.
 
 .loop:
-    mov         r8b, [rsi + rcx]
-    mov         al, [rdi + rcx]
-    cmp         r8b, 0x0
-    je          .rt_end
-    cmp         rax, 0x0
-    je          .rt_end
-    cmp         al, r8b
-    jne         .rt_end
-    inc         rcx
-    jmp         .loop
-
-.rt_end:
-    sub         al, r8b
-    movsx       rax, al
-    jmp         .end
+    mov         r8b, [rsi + rcx]        ; Store actual byte from rsi to r8b
+    mov         al, [rdi + rcx]         ; Store actual byte from rdi to r8b
+    ASSERT      r8b                     ; Assert r8b not '\0'
+    ASSERT      al                      ; Assert r9b not '\0'
+    cmp         al, r8b                 ; Compare bytes from rsi and rdi
+    jne         .end                    ; If not equal, jump to return label
+    inc         rcx                     ; Loop on both strings with rcx
+    jmp         .loop                   ;
 
 .end:
+    sub         al, r8b
+    movsx       rax, al
     ret
-
-;; .loop:
-;;     mov         r8b, [rsi + rcx]
-;;     mov         al, [rdi + rcx]
-;;     cmp         r8b, 0x0
-;;     je          .rt_end
-;;     cmp         rax, 0x0
-;;     je          .rt_end
-;;     cmp         al, r8b
-;;     jne         .rt_end
-;;     inc         rcx
-;;     jmp         .loop
-
-;; .rt_end:
-;;     sub         al, r8b
-;;     movsx       rax, al
-;;     jmp         .end
-
-;; .end:
-;;     ret

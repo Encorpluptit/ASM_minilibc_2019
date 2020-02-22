@@ -21,74 +21,41 @@ my_strcasecmp:
 ; @killedregs   rcx, al
 ;-----------------------------------------------------------------------------
 
+;-----------------------------------------------------------------------------
+;                       MACRO(S)
+%macro CCHECK 2
+    cmp         %1, 'A'                 ; Check if char is greater than begining of ascii letter.
+    jl          %2                      ; Jump to next label if not.
+    cmp         %1, 'Z'                 ; Check if char not an Uppercase letter.
+    jg          %2                      ; Jump to next label if not.
+    xor         %1, ' '                 ; Xor Uppercase to transform it in lowercase.
+%endmacro
+
+%macro ASSERT 1
+    cmp         %1, 0x0                 ; If char == '\0', jump to return label end.
+    je          .end                    ;
+%endmacro
+;-----------------------------------------------------------------------------
+
 strcasecmp:
 .check_rdi:
-    mov         r8b, [rdi]
-    cmp         r8b, 'A'
-    jl          .check_rsi
-    cmp         r8b, 'Z'
-    jg          .check_rsi
-    xor         r8b, ' '
-    ;; add         r8b, ' '
+    mov         r8b, [rdi]              ; Store byte in rdi into r8b to compare and return.
+    CCHECK      r8b, .check_rsi         ; If byte not Uppercase, jump to check_rsi label.
 
 .check_rsi:
-    mov         r9b, [rsi]
-    cmp         r9b, 'A'
-    jl          .cmp
-    cmp         r8b, 'Z'
-    jg          .cmp
-    xor         r9b, ' '
-    ;; add         r9b, ' '
+    mov         r9b, [rsi]              ; Store byte in rsi into r9b to compare and return.
+    CCHECK      r9b, .cmp               ; If byte not Uppercase, jump to cmp label.
 
 .cmp:
-    cmp         r8b, r9b
-    jne         .end
-    cmp         r9b, 0x0
-    je          .end
-    cmp         r8b, 0x0
-    je          .end
-    inc         rdi
-    inc         rsi
-    jmp         .check_rdi
+    ASSERT      r8b                     ; Assert r8b not '\0'.
+    ASSERT      r9b                     ; Assert r9b not '\0'.
+    cmp         r8b, r9b                ; Compare bytes from rdi and rsi.
+    jne         .end                    ; If not Equal, jump to end label.
+    inc         rdi                     ; Loop on rdi and rsi.
+    inc         rsi                     ;
+    jmp         .check_rdi              ;
 
 .end:
     sub         r8b, r9b
     movsx       rax, r8b
     ret
-
-
-
-;; strcasecmp:
-;; 	jmp start1
-
-;; start1:
-;; 	mov r8b, [rdi]
-;; 	cmp r8b, 'A'
-;; 	jl start2
-
-;; t_lower1:
-;; 	add r8b, ' '
-
-;; start2:
-;; 	mov r9b, [rsi]
-;; 	cmp r9b, 'A'
-;; 	jl compare
-
-;; t_lower2:
-;; 	add r9b, ' '
-
-;; compare:
-;; 	cmp r8b, r9b
-;; 	jne .end
-;; 	cmp r8b, 0x0
-;; 	je .end
-;; 	cmp r9b, 0x0
-;; 	je .end
-;; 	inc rsi
-;; 	inc rdi
-;; 	jmp start1
-
-;; .end:
-;; 	sub r8b, r9b
-;; 	movsx rax, r8b
-;; 	ret

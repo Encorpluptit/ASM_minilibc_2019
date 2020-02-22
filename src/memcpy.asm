@@ -23,6 +23,6 @@ my_memcpy:
 memcpy:
     mov         rax, rdi        ; Preserve destination address to return it.
 
-    mov         rcx, rdx
-    rep         movsb           ; Do a byte-by-byte move until rcx == 0.
-    ret
+    mov         rcx, rdx        ; Do a byte-by-byte move until rcx == 0.
+    rep         movsb           ;
+    ret                         ; Return destination address

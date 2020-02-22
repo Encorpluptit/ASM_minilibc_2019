@@ -27,8 +27,8 @@ memmove:
     je          .end            ; If dest == src, do nothing.
     jb          .byte_to_byte   ; If dest < src, we can always do a fast pointer-incrementing move.
 
-    mov         rcx, rsi        ; Store source memory area
-    add         rcx, rdx        ; Update pointer with number of byte to cpy (rdx)
+    mov         rcx, rsi        ; Store source memory area.
+    add         rcx, rdx        ; Update pointer with number of byte to cpy (rdx).
     cmp         rdi, rcx        ; If (dest >= src+num), there are no overlapping regions
     jae         .byte_to_byte   ; we can still do a fast pointer-incrementing move.
 
@@ -46,8 +46,8 @@ memmove:
 
 ; Do a fast pointer-incrementing move.
 .byte_to_byte:
-    mov         rcx, rdx
-    rep         movsb
+    mov         rcx, rdx        ; Do a byte-by-byte move until rcx == 0.
+    rep         movsb           ;
 
 .end:
-    ret
+    ret                         ; Return destination address.
