@@ -1,9 +1,11 @@
-bits            64
-section         .text
-
+    bits        64
+    section     .text
     global      strpbrk
-    global      _strpbrk
 
+%ifdef TESTS
+    global      my_strpbrk
+my_strpbrk:
+%endif
 
 ;-----------------------------------------------------------------------------
 ; @function     strpbrk
@@ -18,7 +20,6 @@ section         .text
 ; @killedregs   rcx, r8
 ;-----------------------------------------------------------------------------
 
-_strpbrk:
 strpbrk:
     jmp         .start
 
@@ -45,59 +46,3 @@ strpbrk:
 .end:
     mov         rax, rdi
     ret
-
-;; _strpbrk:
-;; strpbrk:
-;;     xor         rcx, rcx
-;;     jmp         .start
-
-;; .loop:
-;;     inc         rdi
-;; .start:
-;;     cmp         byte [rdi], 0x0
-;;     je          .rt_null
-;;     xor         r9, r9
-
-;; .sub_str:
-;;     mov         r8b, byte [rsi + r9]
-;;     cmp         r8b, 0x0
-;;     je          .loop
-;;     cmp         r8b, byte [rdi]
-;;     je          .end
-;;     inc         r9
-;;     jmp         .sub_str
-
-;; .rt_null:
-;;     mov         rax, 0x0
-;;     ret
-
-;; .end:
-;;     mov         rax, rdi
-;;     ret
-
-;; _strpbrk:
-;; strpbrk:
-;;     xor         rcx, rcx
-
-;; .loop:
-;;     add         rdi, rcx
-;;     cmp         byte [rdi], 0x0
-;;     je          .rt_null
-;;     xor         r9, r9
-
-;; .sub_str:
-;;     mov         r8b, byte [rsi + r9]
-;;     cmp         r8b, 0x0
-;;     loop        .loop
-;;     cmp         r8b, byte [rdi]
-;;     je          .end
-;;     inc         r9
-;;     jmp         .sub_str
-
-;; .rt_null:
-;;     mov         rax, 0x0
-;;     ret
-
-;; .end:
-;;     mov         rax, rdi
-;;     ret

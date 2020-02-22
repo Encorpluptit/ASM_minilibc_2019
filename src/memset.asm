@@ -1,7 +1,12 @@
-bits                64
-section             .text
-	global              memset
-	global              _memset
+    bits        64
+    section     .text
+    global      memset
+
+
+%ifdef TESTS
+    global      my_memset
+my_memset:
+%endif
 
 ;-----------------------------------------------------------------------------
 ; @function     memset
@@ -14,7 +19,6 @@ section             .text
 ; @killedregs   r8, rcx
 ;-----------------------------------------------------------------------------
 
-_memset:
 memset:
     mov         r8, rdi         ; Preserve the original destination address.
 

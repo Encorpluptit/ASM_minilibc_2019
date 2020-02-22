@@ -1,7 +1,11 @@
-bits                64
-section             .text
-        global              strstr
-        global              _strstr
+    bits        64
+    section     .text
+    global      strstr
+
+%ifdef TESTS
+    global      my_strstr
+my_strstr:
+%endif
 
 ;-----------------------------------------------------------------------------
 ; @function     strstr
@@ -15,7 +19,6 @@ section             .text
 ; @killedregs   rcx, al
 ;-----------------------------------------------------------------------------
 
-_strstr:
 strstr:
     xor         rax, rax
     xor         rcx, rcx

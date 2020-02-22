@@ -1,9 +1,11 @@
-bits            64
-section         .text
-
+    bits        64
+    section     .text
     global      strcspn
-    global      _strcspn
 
+%ifdef TESTS
+    global      my_strcspn
+my_strcspn:
+%endif
 
 ;-----------------------------------------------------------------------------
 ; @function     strcspn
@@ -18,10 +20,10 @@ section         .text
 ; @killedregs   rcx, r8
 ;-----------------------------------------------------------------------------
 
-_strcspn:
 strcspn:
     xor         rcx, rcx
     jmp         .start
+    ;; jrcxz       .start
 
 .loop:
     inc         rcx

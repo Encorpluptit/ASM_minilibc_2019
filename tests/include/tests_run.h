@@ -8,21 +8,10 @@
 #ifndef __TESTS_RUN_H__
 #define __TESTS_RUN_H__
 
-#ifdef TESTS_RUN
-#define static
-#endif /* TESTS_RUN */
-
 #include <criterion/criterion.h>
 #include <criterion/redirect.h>
 
 #include <stdbool.h>
-#define REAL_MALLOC (__real_malloc)
-#define wrap_malloc (__wrap_malloc)
-
-void *REAL_MALLOC(size_t s);
-
-#define SHOULD_MALLOC_FAIL() malloc_fail(false, 0)
-#define SET_MALLOC_FAIL(x) malloc_fail(true, (x))
 
 static inline void redirect_all_std(void)
 {
@@ -31,5 +20,19 @@ static inline void redirect_all_std(void)
 }
 
 #define ASSERT_INT(a, b) cr_assert_eq(a, b, "Expected %d, got %d\n", b, a)
+
+size_t my_strlen(const char *s);
+char *my_strchr(const char *s, int c);
+void *my_memset(void *s, int c, size_t n);
+void *my_memcpy(void *dest, const void *src, size_t n);
+int my_strcmp(const char *s1, const char *s2);
+int my_strncmp(const char *s1, const char *s2, size_t n);
+int my_strncmp(const char *s1, const char *s2, size_t n);
+char *my_rindex(const char *s, int c);
+void *my_memmove(void *dest, const void *src, size_t n);
+char *my_strstr(const char *haystack, const char *needle);
+int my_strcasecmp(const char *s1, const char *s2);
+char *my_strpbrk(const char *s, const char *accept);
+size_t my_strcspn(const char *s, const char *reject);
 
 #endif /* __TESTS_RUN_H__ */

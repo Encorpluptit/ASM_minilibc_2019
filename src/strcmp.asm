@@ -1,7 +1,11 @@
-bits                64
-section             .text
-	global          strcmp
-	global          _strcmp
+    bits        64
+    section     .text
+    global      strcmp
+
+%ifdef TESTS
+    global      my_strcmp
+my_strcmp:
+%endif
 
 ;-----------------------------------------------------------------------------
 ; @function     strcmp
@@ -16,7 +20,6 @@ section             .text
 ; @killedregs   rcx, r8, al
 ;-----------------------------------------------------------------------------
 
-_strcmp:
 strcmp:
     xor         r8, r8
     xor         rcx,rcx

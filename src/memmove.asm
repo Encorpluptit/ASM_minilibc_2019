@@ -1,7 +1,12 @@
-bits                64
-section             .text
-	global              memmove
-	global              _memmove
+    bits        64
+    section     .text
+    global      memmove
+
+
+%ifdef TESTS
+    global      my_memmove
+my_memmove:
+%endif
 
 ;-----------------------------------------------------------------------------
 ; @function     memmove
@@ -14,7 +19,7 @@ section             .text
 ; @reg[out]     rax     Destination address.
 ; @killedregs   rcx
 ;-----------------------------------------------------------------------------
-_memmove:
+
 memmove:
     ; Preserve destination address because we have to return it.
     mov         rax, rdi

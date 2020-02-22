@@ -1,7 +1,11 @@
-bits                64
-section             .text
-	global              strlen
-	global              _strlen
+    bits        64
+    section     .text
+    global      strlen
+
+%ifdef TESTS
+    global      my_strlen
+my_strlen:
+%endif
 
 ;-----------------------------------------------------------------------------
 ; @function     strlen
@@ -13,7 +17,6 @@ section             .text
 ; @killedregs
 ;-----------------------------------------------------------------------------
 
-_strlen:
 strlen:
     xor         rax, rax
 

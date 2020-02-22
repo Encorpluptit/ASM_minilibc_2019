@@ -55,29 +55,17 @@ TSRC_FILES		=	#						\
 LIB_FILES		=	#						\
 
 TESTS_FILES		=	src/test_strlen.c				\
-				fct/strlen.c					\
 				src/test_strchr.c				\
-				fct/strchr.c					\
 				src/test_memset.c				\
-				fct/memset.c					\
 				src/test_memcpy.c				\
-				fct/memcpy.c					\
 				src/test_memmove.c				\
-				fct/memmove.c					\
 				src/test_strcmp.c				\
-				fct/strcmp.c					\
 				src/test_strncmp.c				\
-				fct/strncmp.c					\
 				src/test_rindex.c				\
-				fct/rindex.c					\
 				src/test_strstr.c				\
-				fct/strstr.c					\
 				src/test_strcasecmp.c				\
-				fct/strcasecmp.c				\
 				src/test_strpbrk.c				\
-				fct/strpbrk.c					\
 				src/test_strcspn.c				\
-				fct/strcspn.c					\
 
 #############################################################################################################
 
@@ -265,7 +253,7 @@ GDB_FLAG		+=	-g
 # Setup TESTS flags for TESTS Rules.
 #TESTS_DEFINE		+=	-DTESTS_RUN
 TESTS_LDLIBS		+=	-lcriterion
-TESTS_FLAGS		+=	--coverage -DTESTS
+TESTS_FLAGS		+=	-DTESTS
 WRAP_MALLOC_FLAGS	=	-Wl,--wrap=malloc
 ifeq ($(WRAP_MALLOC), TRUE)
 	TESTS_FLAGS		+=	$(WRAP_MALLOC_FLAGS)
@@ -348,8 +336,7 @@ TITLE			=	"\e[1;4;31m"
 ####################
 # Rule for "make"
 .PHONY: all
-all: BUILD_LIB tests_run
-# all: BUILD_LIB $(PROJECT)
+all: BUILD_LIB
 
 ####################
 # Rule for "make re".
@@ -387,6 +374,7 @@ $(PROJECT): 		$(MAIN) $(OBJ)
 	@echo -e	"[$(PROJECT)]: CC        = $(CC)"						| cat
 	@echo -e	"[$(PROJECT)]: SOURCES   = $(SRC)"						| cat
 	@echo -e	"[$(PROJECT)]: OBJECTS   = $^"							| cat
+	@echo -e	"[$(PROJECT)]: NASMFLAGS = $(NASMFLAGS)"					| cat
 	@echo -e	"[$(PROJECT)]: CFLAGS    = $(CFLAGS)"
 	@echo -e	"[$(PROJECT)]: CPPFLAGS  = $(CPPFLAGS)"
 	@echo -e	"[$(PROJECT)]: LDFLAGS   = $(LDFLAGS)"
@@ -407,6 +395,7 @@ $(PROJECT): 		$(MAIN) $(OBJ)
 BUILD_LIB: 	$(OBJ)
 	@echo -e	"\n\n"$(FRAME_D)
 	@echo -e	$(TITLE)"[$(PROJECT)]: Library $(LIB_NAME) creation:"$(END)
+	@echo -e	"[$(PROJECT)]: NASMFLAGS = $(NASMFLAGS)"					| cat
 	@$(LD) -o $(LDNAME) $(OBJ) $(LSHARED)
 	@echo -e  $(TASK_OK)"[$(PROJECT)]: Libraries created in $(LIB_FOLDER) folder !\n\n"$(END)
 
@@ -431,8 +420,9 @@ BUILD_LIB: 	$(OBJ)
 #=============================#
 #############################################################################################################
 .PHONY: $(UTESTS_RUN)
-$(UTESTS_RUN):		CPPFLAGS	+=	$(TESTS_INCLUDES)
-$(UTESTS_RUN):		aclean $(OBJ) $(TESTS_OBJ)
+$(UTESTS_RUN):		CPPFLAGS	+=	$(TESTS_INCLUDES) $(TESTS_FLAGS)
+$(UTESTS_RUN):		NASMFLAGS	+=	$(TESTS_FLAGS)
+$(UTESTS_RUN):		fclean BUILD_LIB $(OBJ) $(TESTS_OBJ)
 	@echo -e	"\n\n"$(FRAME_D)								| cat
 	@echo -e	$(GREEN_BG)"[$(PROJECT)]: Testing project"$(END)				| cat
 	@echo -e	$(FRAME_D)									| cat
@@ -441,30 +431,17 @@ $(UTESTS_RUN):		aclean $(OBJ) $(TESTS_OBJ)
 	@echo -e	"[$(PROJECT)]: SRC       = $(SRC)"						| cat
 	@echo -e	"[$(PROJECT)]: TESTS_SRC = $(TESTS_SRC)"					| cat
 	@echo -e	"[$(PROJECT)]: CFLAGS    = $(CFLAGS)"						| cat
-	@echo -e	"[$(PROJECT)]: CPPFLAGS  = $(CPPFLAGS)"						| cat
+	@echo -e	"[$(PROJECT)]: NASMFLAGS = $(NASMFLAGS)"					| cat
+	@echo -e	"[$(PROJECT)]: CPPFLAGS  = $(CPPFLAGS)"					| cat
 	@echo -e	"[$(PROJECT)]: LDFLAGS   = $(LDFLAGS)"						| cat
 	@echo -e	"[$(PROJECT)]: LDLIBS    = $(LDLIBS)"						| cat
 	@echo -e	"[$(PROJECT)]: TFLAGS    = $(TFLAGS)"						| cat
-	@$(CC) -o $(TESTS_BIN) $(OBJ) $(TESTS_SRC) $(CFLAGS) $(TFLAGS) $(CPPFLAGS) $(LDLIBS)
+	@$(CC) -o $(TESTS_BIN) $(OBJ) $(TESTS_OBJ) $(CFLAGS) $(TFLAGS) $(CPPFLAGS) $(LDLIBS)
 
 	@echo -e	$(UL)"\n\n[$(PROJECT)]: Starting UNIT_TESTS binary."$(END)			| cat
 	@echo -e	"[$(PROJECT)]: TRUNFLAGS  = $(TRUNFLAGS)\n"					| cat
 	@-./$(TESTS_BIN) $(TRUNFLAGS)
-
-	@echo -e	"\n\n[$(PROJECT)]: Moving test sources coverage files into $(TESTS_FOLDER)"	| cat
-	@-$(MV) $(TESTS_DIR)/src/ test_*.gc*
-
-	@echo -e	"[$(PROJECT)]: Gcovr Flags = $(GCOVFLAGS)"					| cat
-	@echo -e	"\n\n"$(FRAME_D)								| cat
-	@echo -e	$(RED_BG)"\t\t[$(PROJECT)]: Complete coverage report"$(END)			| cat
-	@echo -e	"\e[1m\e[36m\n\t\t\t  $(LC_FRAME)"						| cat
-	@echo -e	"\t\t\t  $(LINE_COV)"								| cat
-	@-echo -e	"\t\t\t  $(LC_FRAME)\e[0m"							| cat
-	@$(GCOV) -r . $(GCOVFLAGS)
-	@echo -e	"\e[1m\e[36m\n\n\t\t\t  $(BC_FRAME)"						| cat
-	@echo -e	"\t\t\t  $(BRANCH_COV)"								| cat
-	@echo -e	"\t\t\t  $(BC_FRAME)\e[0m"							| cat
-	@$(GCOV) -b . $(GCOVFLAGS)
+	@echo -e	$(FRAME_D)									| cat
 	@echo -e	$(RED_BG)"\t\t  ------------ $(PROJECT) ------------  "$(END)			| cat
 #############################################################################################################
 
@@ -505,7 +482,7 @@ $(VALGRIND): 		fclean BUILD_LIB $(MAIN) $(OBJ)
 	@echo -e	"[$(PROJECT)]: SOURCES   = $(SRC)"						| cat
 	@echo -e	"[$(PROJECT)]: OBJECTS   = $(MAIN) $(OBJ)"					| cat
 	@echo -e	"[$(PROJECT)]: CFLAGS    = $(CFLAGS)"						| cat
-	@echo -e	"[$(PROJECT)]: CPPFLAGS  = $(CPPFLAGS)"						| cat
+	@echo -e	"[$(PROJECT)]: CPPFLAGS  = $(CPPFLAGS)"					| cat
 	@echo -e	"[$(PROJECT)]: LDFLAGS   = $(LDFLAGS)"						| cat
 	@echo -e	"[$(PROJECT)]: LDLIBS    = $(LDLIBS)"						| cat
 	@$(CC) -o $(BIN_NAME) $(MAIN) $(OBJ) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBS)

@@ -5,7 +5,6 @@
 ** Tests source file.
 */
 
-#include "libasm.h"
 #include "tests_run.h"
 
 Test(strlen, test_1)

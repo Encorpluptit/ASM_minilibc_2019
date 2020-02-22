@@ -1,7 +1,12 @@
-bits                64
-section             .text
-	global              memcpy
-	global              _memcpy
+    bits        64
+    section     .text
+    global      memcpy
+
+
+%ifdef TESTS
+    global      my_memcpy
+my_memcpy:
+%endif
 
 ;-----------------------------------------------------------------------------
 ; @function     memcpy
@@ -16,7 +21,6 @@ section             .text
 ; @killedregs   rcx
 ;-----------------------------------------------------------------------------
 
-_memcpy:
 memcpy:
     ; Preserve destination address because we have to return it.
     mov         rax, rdi

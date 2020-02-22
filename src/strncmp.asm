@@ -1,7 +1,11 @@
-bits                64
-section             .text
-        global              strncmp
-        global              _strncmp
+    bits        64
+    section     .text
+    global      strncmp
+
+%ifdef TESTS
+    global      my_strncmp
+my_strncmp:
+%endif
 
 ;-----------------------------------------------------------------------------
 ; @function     strncmp
@@ -22,7 +26,6 @@ section             .text
     je          %3
 %endmacro
 
-_strncmp:
 strncmp:
     xor         rax, rax
     xor         r8, r8

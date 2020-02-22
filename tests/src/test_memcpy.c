@@ -5,7 +5,6 @@
 ** Tests source file.
 */
 
-#include "libasm.h"
 #include "tests_run.h"
 
 Test(memcpy, test_1)
@@ -16,7 +15,7 @@ Test(memcpy, test_1)
     int set = '2';
 
     __builtin_memset(ref, set, sz);
-    _memcpy(test, ref, sz);
+    my_memcpy(test, ref, sz);
     cr_assert_str_eq(test, ref);
     free(test);
     free(ref);

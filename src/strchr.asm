@@ -1,7 +1,11 @@
-bits                64
-section             .text
-    global              strchr
-    global              _strchr
+    bits        64
+    section     .text
+    global      strchr
+
+%ifdef TESTS
+    global      my_strchr
+my_strchr:
+%endif
 
 ;-----------------------------------------------------------------------------
 ; @function     strchr
@@ -14,17 +18,8 @@ section             .text
 ; @killedregs
 ;-----------------------------------------------------------------------------
 
-_strchr:
 strchr:
     xor         rax, rax
-
-;; .loop:
-;;     ;; std                         ; Set the direction flag so copying is right-to-left.
-;;     cmp         byte [rdi + rcx], sil
-;;     je          .rt
-;;     cmp         byte [rdi + rcx], 0x00
-;;     je          .rt_null
-;;     loop        .loop
 
 .loop:
     cmp         byte [rdi], sil
@@ -37,9 +32,12 @@ strchr:
 .rt:
     mov         rax, rdi
     jmp         .end
+    ;; ret
 
 .rt_null:
     mov     rax, 0x0
+    ;; ret
 
 .end:
     ret
+    ;; remove

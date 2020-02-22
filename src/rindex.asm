@@ -1,7 +1,12 @@
-bits                64
-section             .text
-	global              rindex
-	global              _rindex
+    bits        64
+    section     .text
+    global      rindex
+
+
+%ifdef TESTS
+    global      my_rindex
+my_rindex:
+%endif
 
 ;-----------------------------------------------------------------------------
 ; @function     rindex
@@ -14,7 +19,6 @@ section             .text
 ; @killedregs
 ;-----------------------------------------------------------------------------
 
-_rindex:
 rindex:
     xor         rax, rax
 
