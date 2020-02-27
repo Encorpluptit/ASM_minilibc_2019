@@ -2,7 +2,6 @@
     section     .text
     global      memmove
 
-
 %ifdef TESTS
     global      my_memmove
 my_memmove:

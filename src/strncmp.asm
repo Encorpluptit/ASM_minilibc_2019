@@ -32,14 +32,15 @@ strncmp:
     xor         rcx,rcx
 
 .loop:
-    ASSERT      rcx, rdx, .rt_null
+    ASSERT      rcx, rdx, .rt_end
     mov         r8b, byte [rsi + rcx]
     mov         al, byte [rdi + rcx]
     ASSERT      r8, 0x0, .rt_end
     ASSERT      al, 0x0, .rt_end
     cmp         al, r8b
     jne         .rt_end
-    loop        .loop
+    inc         rcx
+    jmp         .loop
 
 .rt_end:
     sub         al, r8b

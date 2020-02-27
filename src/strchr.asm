@@ -2,7 +2,6 @@
     section     .text
     global      strchr
 
-
 %ifdef TESTS
     global      my_strchr
 my_strchr:
