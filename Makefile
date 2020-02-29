@@ -398,7 +398,7 @@ BUILD_LIB: 	$(OBJ)
 	@echo -e	"\n\n"$(FRAME_D)
 	@echo -e	$(TITLE)"[$(PROJECT)]: Library $(LIB_NAME) creation:"$(END)
 	@echo -e	"[$(PROJECT)]: NASMFLAGS = $(NASMFLAGS)"					| cat
-	@$(LD) -o $(LDNAME) $(OBJ) $(LSHARED)
+	@$(LD) $(LSHARED) $(OBJ) -o $(LDNAME)
 	@echo -e  $(TASK_OK)"[$(PROJECT)]: Libraries created in $(LIB_FOLDER) folder !\n\n"$(END)
 
 

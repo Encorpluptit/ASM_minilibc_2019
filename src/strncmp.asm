@@ -21,18 +21,22 @@ my_strncmp:
 ; @killedregs   rcx, r8, al
 ;-----------------------------------------------------------------------------
 
+
+;-----------------------------------------------------------------------------
+;                       MACRO(S)
 %macro ASSERT 3
-    cmp         %1, %2
-    je          %3
+    cmp         %1, %2                  ; If first arg == second arg, jump to lab
+    je          %3                      ;
 %endmacro
+;-----------------------------------------------------------------------------
 
 strncmp:
-    xor         rax, rax
-    xor         r8, r8
-    xor         rcx,rcx
+    xor         rax, rax                        ; Function initialisation:
+    xor         r8, r8                          ; Reset used parameters (Xoring with itself)
+    xor         rcx,rcx                         ;
 
 .loop:
-    ASSERT      rcx, rdx, .rt_end
+    ASSERT      rcx, rdx, .rt_end               ;
     mov         r8b, byte [rsi + rcx]
     mov         al, byte [rdi + rcx]
     ASSERT      r8, 0x0, .rt_end

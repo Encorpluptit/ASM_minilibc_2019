@@ -19,9 +19,6 @@ my_strchr:
 ;-----------------------------------------------------------------------------
 
 strchr:
-    xor         rax, rax                ; Set rax to 0 by security
-                                        ; TODO : REMOVE
-
 .loop:
     cmp         byte [rdi], sil         ; Compare byte in rdi with char to find
     je          .found                  ;
