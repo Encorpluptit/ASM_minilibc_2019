@@ -41,24 +41,21 @@ cat:
 
 
 .exit:
-  ; Ferme le fichier
-    mov         rax, SYS_CLOSE
-    mov         rdi, fd
+    mov         rax, SYS_CLOSE          ; Ferme le fichier
+    mov         rdi, fd                 ;
     syscall
 
-  ; Ajoute un retour à la ligne
-    mov         [file_buffer], dword 10
-    mov         rax, SYS_WRITE
-    mov         rdi, STDOUT
-    mov         rsi, file_buffer
-    mov         rdx, 1
+    mov         [file_buffer], dword 10 ; Ajoute un retour à la ligne
+    mov         rax, SYS_WRITE          ;
+    mov         rdi, STDOUT             ;
+    mov         rsi, file_buffer        ;
+    mov         rdx, 1                  ;
     syscall
 
-  ; Quitte
-    mov         rax, 60
-    mov         rdi, 0
-    syscall
-    ret
+    mov         rax, 60                 ; Quitte
+    mov         rdi, 0                  ;
+    syscall                             ;
+    ret                                 ;
 
 
 section     .data
