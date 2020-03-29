@@ -11,6 +11,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: nasm
+      run: sudo apt-get install -y nasm
     - name: make
       run: make
     - name: make re
