@@ -1,0 +1,19 @@
+name: C/C++ CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: nasm
+      run: sudo apt-get install -y nasm
+    - name: make
+      run: make
+    - name: make re
+      run: make re
