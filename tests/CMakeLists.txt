@@ -1,5 +1,6 @@
 set(CMAKE_C_STANDARD 99)
 add_compile_options(-DTESTS)
+set(CMAKE_C_FLAGS -fno-builtin)
 
 set(TESTS_SRC_DIR ${TESTS_DIR}/src)
 set(
@@ -31,7 +32,3 @@ add_executable(
 )
 target_link_libraries(unit_tests criterion)
 link_libraries(criterion)
-
-#add_custom_target(unit_tests COMMAND gcovr . -b)
-#add_custom_command(TARGET unit_tests POST_BUILD COMMAND ls -l)
-#add_custom_command(TARGET unit_tests POST_BUILD COMMAND gcovr . -b)

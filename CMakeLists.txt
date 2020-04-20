@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 project(MiniLibC)
+
 enable_language(C ASM_NASM)
 set(CMAKE_C_STANDARD 99)
 
@@ -32,17 +33,16 @@ set(
 set(SOURCES main.c ${ASM_SOURCES})
 add_executable(AsmMain include/libasm.h ${SOURCES})
 
-#set_target_properties(asm PROPERTIES LINKER_LANGUAGE ASM_NASM)
 
 set(TESTS_DIR ${CMAKE_SOURCE_DIR}/tests)
-add_subdirectory(tests)
+add_subdirectory(${TESTS_DIR})
 enable_testing()
 add_test(tests unit_tests)
 
+#
 #add_custom_target(
 #        tests_run
-#        COMMAND cp -r ${CMAKE_SOURCE_DIR}/tests/bins ${CMAKE_CURRENT_BINARY_DIR}/tests/
-#        COMMAND ./tests/unit_tests --always-succeed
-#        COMMAND gcovr -s    --exclude='tests|lib' -r ${CMAKE_SOURCE_DIR}
+#        #        COMMAND ./tests/unit_tests --always-succeed
+#        COMMAND gcovr -s --exclude='tests|lib' -r ${CMAKE_SOURCE_DIR}
 #        COMMAND gcovr -s -b --exclude='tests|lib' -r ${CMAKE_SOURCE_DIR}
 #)
