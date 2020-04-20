@@ -17,6 +17,11 @@ jobs:
         run: make
       - name: make re
         run: make re
+      - name: install criterion
+        run: |
+          sudo add-apt-repository ppa:snaipewastaken/ppa
+          sudo apt-get update
+          sudo apt-get install criterion-dev
       - name: make tests_run
         run: make tests_run
 
