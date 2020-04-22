@@ -5,7 +5,8 @@
 Epitech Project, 2nd Year.
  - First ASM Project
  - Done in 4-6 days
-
+ - [Project subject.](/Project/B-ASM-400_minilibc.pdf)
+ - First CI integration with github action.
 ---
 
 ### Rewrite in ASM language some LibC functions.
