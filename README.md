@@ -42,7 +42,9 @@ Epitech Project, 2nd Year.
 
 ## Pending ToDo's:
 
-Cmake List Shared Library compilation
+Adding Project results
+
+CMakeList Shared Library compilation
 
 Doxygen Documentation
 
