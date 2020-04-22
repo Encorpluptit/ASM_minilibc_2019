@@ -9,7 +9,12 @@ Epitech Project, 2nd Year.
  - First CI integration with github action.
 ---
 
-### Rewrite in ASM language some LibC functions.
+
+### Project overview
+
+100 % functional.
+
+## Goal: Rewrite in ASM language some LibC functions.
  - memcpy
  - memove
  - memset
@@ -23,11 +28,6 @@ Epitech Project, 2nd Year.
  - strpbrk
  - strstr
 
----
-
-## Project overview
-
-100 % functional.
 
 ### Tests
  - Using Criterion testing library
@@ -36,7 +36,8 @@ Epitech Project, 2nd Year.
 
 ### Compilation:
  - Makefile (Shared Library creation)
- - CmakeList(Shared Library Abandoned, not enough documentation on Cmake NASM)
+ - CmakeList test executable
+ (Shared Library Abandoned, not enough documentation on Cmake NASM)
 
 
 ---
