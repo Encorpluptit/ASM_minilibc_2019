@@ -21,28 +21,28 @@ my_strpbrk:
 ;-----------------------------------------------------------------------------
 
 strpbrk:
-    jmp         .start
+    jmp         .start                          ; Skip loop incrementation
 
 .loop:
-    inc         rdi
+    inc         rdi                             ; Increment s
 .start:
-    cmp         byte [rdi], 0x0
-    je          .rt_null
-    xor         rcx, rcx
+    cmp         byte [rdi], 0x0                 ; Compare char from s with \0
+    je          .rt_null                        ; If equal, return
+    xor         rcx, rcx                        ; Reset rcx
 
 .sub_str:
-    mov         r8b, byte [rsi + rcx]
-    cmp         r8b, 0x0
-    je          .loop
-    cmp         r8b, byte [rdi]
-    je          .end
-    inc         rcx
-    jmp         .sub_str
+    mov         r8b, byte [rsi + rcx]           ; Moving char from accept + count into r8b
+    cmp         r8b, 0x0                        ; Compare with \0
+    je          .loop                           ; If end of accept , restart loop on s + 1
+    cmp         r8b, byte [rdi]                 ; Compare char from s with char from accept
+    je          .end                            ; If eqaul, return result
+    inc         rcx                             ; Increment count and restart loop on accept
+    jmp         .sub_str                        ;
 
 .rt_null:
-    mov         rax, 0x0
+    mov         rax, 0x0                        ; Return 0
     ret
 
 .end:
-    mov         rax, rdi
+    mov         rax, rdi                        ; Return result
     ret

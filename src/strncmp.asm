@@ -36,21 +36,21 @@ strncmp:
     xor         rcx,rcx                         ;
 
 .loop:
-    ASSERT      rcx, rdx, .rt_end               ;
-    mov         r8b, byte [rsi + rcx]
-    mov         al, byte [rdi + rcx]
-    ASSERT      r8, 0x0, .rt_end
-    ASSERT      al, 0x0, .rt_end
-    cmp         al, r8b
-    jne         .rt_end
-    inc         rcx
+    ASSERT      rcx, rdx, .rt_end               ; if index == n, return al - r8b
+    mov         r8b, byte [rsi + rcx]           ; Moving char from s2 to r8b
+    mov         al, byte [rdi + rcx]            ; Moving cher from s1 to al
+    ASSERT      r8, 0x0, .rt_end                ; Assert not end of s1 or s2
+    ASSERT      al, 0x0, .rt_end                ;
+    cmp         al, r8b                         ; Compare Chars from s1 and s2
+    jne         .rt_end                         ; If different, return al - r8b
+    inc         rcx                             ; Increment counter and restart loop
     jmp         .loop
 
 .rt_end:
-    sub         al, r8b
-    movsx       rax, al
+    sub         al, r8b                         ; Subtract r8b from al
+    movsx       rax, al                         ; Move al into rax for Return
     ret
 
 .rt_null:
-    mov     rax, 0x0
+    mov     rax, 0x0                            ; return 0 (Useless with label rt_end ?)
     ret
