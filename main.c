@@ -12,5 +12,5 @@
 #include "libasm.h"
 
 int main() {
-    return strlen("lol");
+    return -__builtin_strcmp("LOAOOOOOOOOOOL", "LOOOOOOOOOOOOL");
 }

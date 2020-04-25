@@ -20,7 +20,7 @@ Test(strcmp, test_2)
     char *ref = "LOOOOOOOOOOOOL";
     char *test = "LOOOOOL";
 
-    ASSERT_INT(my_strcmp(ref, test), __builtin_strcmp(ref, test));
+    cr_assert_gt(my_strcmp(ref, test), 0);
 }
 
 Test(strcmp, test_3)
@@ -28,7 +28,7 @@ Test(strcmp, test_3)
     char *ref = "LOOOOOL";
     char *test = "LOOOOOOOOL";
 
-    ASSERT_INT(my_strcmp(ref, test), __builtin_strcmp(ref, test));
+    cr_assert_lt(my_strcmp(ref, test), 0);
 }
 
 Test(strcmp, test_4)
@@ -132,7 +132,7 @@ Test(strcmp, test_11)
     char *ref = "LOAOOOOOOOOOOL";
     char *test = "LOOOOOOOOOOOOL";
 
-    ASSERT_INT(my_strcmp(ref, test), __builtin_strcmp(ref, test));
+    cr_assert_lt(my_strcmp(ref, test), 0);
 }
 
 Test(strcmp, test_12)
@@ -140,7 +140,7 @@ Test(strcmp, test_12)
     char *ref = "LOOOOOOOOOOAOL";
     char *test = "LOOOOOL";
 
-    ASSERT_INT(my_strcmp(ref, test), __builtin_strcmp(ref, test));
+    cr_assert_gt(my_strcmp(ref, test), 0);
 }
 
 Test(strcmp, test_13)
@@ -148,7 +148,7 @@ Test(strcmp, test_13)
     char *ref = "LOOOOOL";
     char *test = "LOOAOOOOOL";
 
-    ASSERT_INT(my_strcmp(ref, test), __builtin_strcmp(ref, test));
+    cr_assert_gt(my_strcmp(ref, test), 0);
 }
 
 Test(strcmp, test_14)
@@ -156,7 +156,7 @@ Test(strcmp, test_14)
     char *ref = "LOOOOOOOOOOAOL";
     char *test = "LOOAOOL";
 
-    ASSERT_INT(my_strcmp(ref, test), __builtin_strcmp(ref, test));
+    cr_assert_gt(my_strcmp(ref, test), 0);
 }
 
 Test(strcmp, test_15)
@@ -164,7 +164,7 @@ Test(strcmp, test_15)
     char *ref = "LOOOOOL";
     char *test = "LOOOOOOAOL";
 
-    ASSERT_INT(my_strcmp(ref, test), __builtin_strcmp(ref, test));
+    cr_assert_lt(my_strcmp(ref, test), 0);
 }
 
 Test(strcmp, test_16)
