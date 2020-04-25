@@ -90,19 +90,13 @@ endif # PRINT_OBJ
 
 
 ################################################################################
+%.o: %.S
+	@$(AS) $(ASFLAGS) $(CPPFLAGS) -o $@ $<
+	@$(PRINT) "$(CMAGENTA)$(CBOLD)%-45b $(CGREEN) → Compile OK ✓$(CRESET)" "$@"
 %.o: %.asm
 	@$(AS) $(ASFLAGS) $(CPPFLAGS) -o $@ $<
 	@$(PRINT) "$(CMAGENTA)$(CBOLD)%-45b $(CGREEN) → Compile OK ✓$(CRESET)" "$@"
-################################################################################
-%.o: %.S
-	@$(AS) $(ASFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBS) -c -o $@ $<
-	@$(PRINT) "$(CMAGENTA)$(CBOLD)%-45b $(CGREEN) → Compile OK ✓$(CRESET)" "$@"
-# TODO: refacto abrove by rule below ?
-#$(NASM_OBJLIST): %.o: %.asm
-#$(ASM_OBJLIST): %.o: %.S
-#$(ASM_OBJLIST) $(NASM_OBJLIST):
-#	@$(AS) $(ASFLAGS) $(CPPFLAGS) -c -o $@ $<
-#	@$(PRINT) "$(CMAGENTA)$(CBOLD)%-40b $(CGREEN) → Compile OK ✓$(CRESET)" "$@"
+# ################################################################################
 
 debug: DEBUG_FLAGS += -g3 -D_DEBUG_
 debug: fclean
