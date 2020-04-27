@@ -28,19 +28,19 @@ strstr:
     cmp         al, 0x0                         ; Check if al == \0
     je          .end                            ; If equal stop fct.
     inc         rdi                             ; Increment s1 (haystack)
-    xor         rcx, rcx                        ; Reset rcx (for doc purpuses)
+    xor         rcx, rcx                        ; Reset rcx (xor for doc purpuses)
 
 .loop:
-    mov         al, [rdi + rcx]                 ;
-    cmp         byte [rsi + rcx], 0x0
-    jz          .found
-    cmp         al, [rsi + rcx]
-    jne         .restart
-    inc         rcx
-    jmp         .loop
+    mov         al, [rdi + rcx]                 ; Move char from s1 (haystack) + idx into al
+    cmp         byte [rsi + rcx], 0x0           ; Compare char from s2 (needle) + idx with \0
+    jz          .found                          ; If end of needle, substr found. Jump to found
+    cmp         al, [rsi + rcx]                 ; Compare char from s1 and s2
+    jne         .restart                        ; if different, jump to restart label to increment variables
+    inc         rcx                             ; if equal increment rcx and restart loop
+    jmp         .loop                           ;
 
 .found:
-    mov         rax, rdi
+    mov         rax, rdi                        ; if found move found ptr into rax
 
 .end:
     ret

@@ -35,7 +35,7 @@ strpbrk:
     cmp         r8b, 0x0                        ; Compare with \0
     je          .loop                           ; If end of accept , restart loop on s + 1
     cmp         r8b, byte [rdi]                 ; Compare char from s with char from accept
-    je          .end                            ; If eqaul, return result
+    je          .end                            ; If equal, return result
     inc         rcx                             ; Increment count and restart loop on accept
     jmp         .sub_str                        ;
 

@@ -9,13 +9,7 @@
 # Make includes
 include ./makeinclude/commands.mk
 ###############################################################################
-# TODO: Fix ALL TODOs
-# TODO: Check shared lib, test for ASM (MiniLibC)
-# TODO: Add Haskell and c++ support
-# TODO: Update debug rule with print header
-# TODO: add rule for LIBS_DEBUG / LIBS GDB
-# TODO: Replace ifndef var by defines
-# TODO: Change print line char (-) and color
+
 
 ###############################################################################
 # Project Configuration
